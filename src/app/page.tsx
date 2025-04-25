@@ -11,7 +11,7 @@ function Home() {
       <Input placeholder="enter the chat" />
       <Checkbox />
       <Progress value={50} />
-      <p className="text-red-300">this is home page</p>
+      <p className="text-red-300">this is home page </p>
     </div>
   );
 }
