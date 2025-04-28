@@ -42,8 +42,7 @@ function Navbar() {
   const pathName = usePathname();
   const [isSideBarOpen, setIsSidebarOpen] = useState(false);
   return (
-    <nav className="h-20 border-b flex justify-between font-medium bg-white">
-      
+    <nav className="h-18 border-b flex justify-between font-medium bg-white">
       <Link href={""} className="pl-6 flex items-center">
         <span className={cn("text-5xl font-semibold ", popins.className)}>
           TradeNest

@@ -22,7 +22,7 @@ function SubCategoriesMenu({ category, isOpen, position }: type) {
     <div className="fixed z-100 " style={position}>
       <div className="h-10 " />
       <div className=" relative">
-      <div className="w-60 h-3 " />
+        <div className="w-60 h-3 " />
         <div
           className="w-60 text-black rounded-md overflow-hidden  border shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] absolute -left-12 "
           style={{ backgroundColor: backGroundColor }}
@@ -31,7 +31,7 @@ function SubCategoriesMenu({ category, isOpen, position }: type) {
             {category.subCategories.map((subcategory: Category) => (
               <Link
                 key={subcategory.slug}
-                href={"/"}
+                href={`/${category.slug}/${subcategory.slug}`}
                 className="w-full text-left p-4 hover:bg-black hover:text-white flex justify-between items-center underline font-medium"
               >
                 {subcategory.name}

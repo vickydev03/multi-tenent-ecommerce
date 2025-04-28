@@ -5,9 +5,10 @@ import SearchFilters from "../search-filters";
 import configPromise from "@payload-config";
 import { getPayload } from "payload";
 import { Category } from "@/payload-types";
+import { CustomCategory } from "@/types";
 
 interface type {
-  subcategories: any;
+  subCategories: any;
 }
 async function layout({ children }: { children: React.ReactNode }) {
   const payload = await getPayload({
@@ -18,17 +19,19 @@ async function layout({ children }: { children: React.ReactNode }) {
     collection: "categories",
     depth: 2,
     pagination: false,
+    sort: "name",
     where: {
       parent: {
         exists: false,
       },
     },
   });
+  console.log(data, "ajaysingh");
 
-  const formattedData = data.docs.map((doc: any) => ({
+  const formattedData: CustomCategory[] = data.docs.map((doc: any) => ({
     ...doc,
     subCategories:
-      doc?.subcategories.docs ?? []?.map((doc) => ({ ...(doc as Category) })),
+      doc?.subCategories.docs ?? []?.map((doc) => ({ ...(doc as Category) })),
     subcategories: undefined,
   }));
 

@@ -4,9 +4,11 @@ import { cn } from "@/lib/utils";
 import { Category } from "@/payload-types";
 import React, { useRef, useState } from "react";
 import SubCategoriesMenu from "./SubCategoriesMenu";
-import {useDropDownPosition} from "@/hooks/useDropDownPosition";
+import { useDropDownPosition } from "@/hooks/useDropDownPosition";
+import Link from "next/link";
+import { CustomCategory } from "@/types";
 interface type {
-  category: Category & { subCategories?: Category[] };
+  category: any;
   isActive?: boolean;
   isNavigationHovered?: boolean;
 }
@@ -16,9 +18,9 @@ function CategoryDropdown({ category, isActive, isNavigationHovered }: type) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropDownRef = useRef<HTMLDivElement>(null);
 
-  const {getDropDownPosition} = useDropDownPosition(dropDownRef);
-  let dropdownPosition=getDropDownPosition()
-  
+  const { getDropDownPosition } = useDropDownPosition(dropDownRef);
+  let dropdownPosition = getDropDownPosition();
+
   const mouseEnter = () => {
     if (category.subCategories) {
       console.log("hello");
@@ -41,10 +43,14 @@ function CategoryDropdown({ category, isActive, isNavigationHovered }: type) {
         variant={"elevated"}
         className={cn(
           "h-11 px-su4 bg-transparent border-transparent rounded-full hover:bg-white hover:border-primary text-black",
-          isActive && !isNavigationHovered && "bg-white border-primary"
+          isActive && !isNavigationHovered && "bg-white border-primary",
+          isOpen &&
+            "border-primary bg-white  shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-[4px] hover:-translate-y-[4px] transition-all"
         )}
       >
-        {category.name}
+        <Link href={`/${category.slug == "all" ? "" : category.slug}`}>
+          {category.name}
+        </Link>
       </Button>
 
       {category.subCategories && category.subCategories.length > 0 && (
@@ -55,7 +61,11 @@ function CategoryDropdown({ category, isActive, isNavigationHovered }: type) {
           )}
         />
       )}
-      <SubCategoriesMenu category={category} isOpen={isOpen} position={dropdownPosition} />
+      <SubCategoriesMenu
+        category={category}
+        isOpen={isOpen}
+        position={dropdownPosition}
+      />
     </div>
   );
 }
