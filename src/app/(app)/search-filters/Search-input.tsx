@@ -1,3 +1,4 @@
+"use client";
 import { Input } from "@/components/ui/input";
 import { ListFilter, SearchIcon } from "lucide-react";
 import React, { useState } from "react";
@@ -27,7 +28,7 @@ function SearchInput({ disabled, data }: { disabled: boolean; data: any }) {
         <Button
           className="size-12 shrink-0 flex lg:hidden"
           variant={"elevated"}
-          onClick={()=>setIsSideBarOpen(true)}
+          onClick={() => setIsSideBarOpen(true)}
         >
           <ListFilter />
         </Button>

@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import "./globals.css";
+
+import { TRPCProvider, TRPCReactProvider } from "@/trpc/client";
+
 const dm_sans = DM_Sans({
   subsets: ["latin"],
 });
@@ -16,7 +19,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={` ${dm_sans.className} antialiased`  } suppressHydrationWarning>{children}</body>
+      <body
+        className={` ${dm_sans.className} antialiased`}
+        suppressHydrationWarning
+      >
+        <TRPCReactProvider>{children}</TRPCReactProvider>
+      </body>
     </html>
   );
 }

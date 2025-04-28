@@ -1,3 +1,4 @@
+"use client"
 import { CustomCategory } from "@/types";
 import React, { useState } from "react";
 interface Props {
