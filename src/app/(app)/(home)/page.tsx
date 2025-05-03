@@ -5,9 +5,7 @@ import { useTRPC } from "@/trpc/client";
 import React from "react";
 
 function page() {
-  // const trpc=useTRPC()
-  // const {data}=
-  return <div>4546465 dsafdsfds</div>;
-} 
+  return <div>ajay</div>;
+}
 
 export default page;

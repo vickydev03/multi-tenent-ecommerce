@@ -40,15 +40,17 @@ function CategoryDropdown({ category, isActive, isNavigationHovered }: type) {
       onMouseLeave={mouseLeave}
     >
       <Button
-        variant={"elevated"}
+        variant="elevated"
+        asChild
         className={cn(
-          "h-11 px-su4 bg-transparent border-transparent rounded-full hover:bg-white hover:border-primary text-black",
+          "h-11 px-su4 bg-transparent border-transparent rounded-full text-black transition-all",
+          "hover:bg-white hover:border-primary",
           isActive && !isNavigationHovered && "bg-white border-primary",
           isOpen &&
-            "border-primary bg-white  shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-[4px] hover:-translate-y-[4px] transition-all"
+            "bg-white border-primary shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-[4px] hover:-translate-y-[4px]"
         )}
       >
-        <Link href={`/${category.slug == "all" ? "" : category.slug}`}>
+        <Link href={`/${category.slug === "all" ? "" : category.slug}`}>
           {category.name}
         </Link>
       </Button>

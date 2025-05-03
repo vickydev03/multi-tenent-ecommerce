@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ListFilterIcon } from "lucide-react";
 import CategoriesSideBar from "./CategoriesSideBar";
+import { useParams } from "next/navigation";
 function Categories({ data }: { data: CustomCategory[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const measureRef = useRef<HTMLDivElement>(null);
@@ -15,9 +16,11 @@ function Categories({ data }: { data: CustomCategory[] }) {
   const [visibleCount, setVisibleCount] = useState(data.length);
   const [isAnyHovered, setIsAnyHovered] = useState(false);
   const [isSidebarOpen, setIsSideBarOpen] = useState(false);
-  console.log(isSidebarOpen,"sidebar ");
-  
-  const activeCategory = "all";
+  console.log(isSidebarOpen, "sidebar ");
+
+  const params = useParams();
+  const categoryParams = params.category as string | undefined;
+  const activeCategory = categoryParams || "all";
   let activeCategoryIndex = data.findIndex(
     (cat) => cat.slug === activeCategory
   );
@@ -106,8 +109,10 @@ function Categories({ data }: { data: CustomCategory[] }) {
           );
         })}
         <div className=" shrink-0" ref={ViewAllRef}>
+          
           <Button
-          onClick={()=>setIsSideBarOpen(true)}
+            onClick={() => setIsSideBarOpen(true)}
+            variant={"elevated"}
             className={cn(
               "h-11 px-su4 bg-transparent border-transparent rounded-full hover:bg-white hover:border-primary text-black",
               IsActiveCategoryHidden &&
