@@ -29,16 +29,31 @@ import { useRouter } from "next/navigation";
 function SignInView() {
   const router = useRouter();
   const trpc = useTRPC();
-  const login = useMutation(
-    trpc.auth.login.mutationOptions({
-      onError: (error) => {
-        toast.error(error.message);
-      },
-      onSuccess: () => {
-        router.push("/");
-      },
-    })
-  );
+  const login = useMutation({
+    mutationFn: async (values: z.infer<typeof loginSchema>) => {
+      const res = await fetch("/api/users/login", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(values),
+      });
+
+      if (!res.ok) {
+        const errors = await res.json();
+        throw new Error(errors.message || "Login failed");
+      }
+
+      return res.json();
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+    onSuccess: () => {
+      router.push("/");
+    },
+  });
+
   const form = useForm<z.infer<typeof loginSchema>>({
     resolver: zodResolver(loginSchema),
     defaultValues: {

@@ -10,7 +10,7 @@ import { AUTH_COOKIE } from "../constants";
 export const authRouter = createTRPCRouter({
   session: baseProcedure.query(async ({ ctx }) => {
     const headers = await getHeaders();
-    
+
     const session = await ctx.payload.auth({ headers });
     return session;
   }),
@@ -51,10 +51,9 @@ export const authRouter = createTRPCRouter({
       if (existingUser) {
         throw new TRPCError({
           code: "BAD_REQUEST",
-          message:"Username is already taken"
+          message: "Username is already taken",
         });
       }
-
 
       await ctx.payload.create({
         collection: "users",
