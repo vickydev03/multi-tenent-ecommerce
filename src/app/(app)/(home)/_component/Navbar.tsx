@@ -62,13 +62,13 @@ function Navbar() {
           variant={"secondary"}
           className="border-l border-b-0 border-r-0 border-t-0 h-full px-12  hover:bg-pink-400 bg-white rounded-none transition-colors text-lg"
         >
-          <Link href={"/sign-in"}>Log in</Link>
+          <Link prefetch href={"/sign-in"}>Log in</Link>
         </Button>
         <Button
           asChild
           className="border-l border-b-0 border-r-0 border-t-0 h-full px-12  hover:bg-pink-400 hover-text-black bg-black rounded-none transition-colors text-lg"
         >
-          <Link href={"/sign-up"}>Start selling</Link>
+          <Link prefetch href={"/sign-up"}>Start selling</Link>
         </Button>
       </div>
 

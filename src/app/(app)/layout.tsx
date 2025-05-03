@@ -3,7 +3,7 @@ import { DM_Sans } from "next/font/google";
 import "./globals.css";
 
 import { TRPCProvider, TRPCReactProvider } from "@/trpc/client";
-
+import { Toaster } from "@/components/ui/sonner";
 const dm_sans = DM_Sans({
   subsets: ["latin"],
 });
@@ -23,7 +23,9 @@ export default function RootLayout({
         className={` ${dm_sans.className} antialiased`}
         suppressHydrationWarning
       >
-        <TRPCReactProvider>{children}</TRPCReactProvider>
+        <TRPCReactProvider>
+          {children} <Toaster />
+        </TRPCReactProvider>
       </body>
     </html>
   );
