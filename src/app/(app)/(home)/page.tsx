@@ -5,7 +5,7 @@ import { useTRPC } from "@/trpc/client";
 import React from "react";
 
 function page() {
-  return <div>ajay</div>;
+  return <div>dinhj</div>;
 }
 
 export default page;

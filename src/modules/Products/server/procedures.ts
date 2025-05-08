@@ -6,11 +6,27 @@ import type { Where } from "payload";
 
 export const ProductRouter = createTRPCRouter({
   getMany: baseProcedure
-    .input(z.object({ categorySlug: z.string().nullable().optional() }))
+    .input(
+      z.object({
+        categorySlug: z.string().nullable().optional(),
+        minPrice: z.string().nullable().optional(),
+        maxPrice: z.string().nullable().optional(),
+      })
+    )
     .query(async ({ ctx, input }) => {
       console.log(input, "singhajay");
 
       const where: Where = {};
+      if (input.minPrice) {
+        where.price={
+          greater_than_equal:input.minPrice
+        }
+      }
+      if (input.maxPrice) {
+        where.price={
+          less_than_equal:input.maxPrice
+        }
+      }
 
       if (input.categorySlug) {
         const categoriesData = await ctx.payload.find({
@@ -34,9 +50,9 @@ export const ProductRouter = createTRPCRouter({
             subcategories: undefined,
           })
         );
-        const subcategoriesSlug:any = [];
-        
-        console.log(subcategoriesSlug,"aaradhya singh");
+        const subcategoriesSlug: any = [];
+
+        console.log(subcategoriesSlug, "aaradhya singh");
         const category = formattedData[0];
         if (category) {
           subcategoriesSlug.push(
@@ -46,7 +62,7 @@ export const ProductRouter = createTRPCRouter({
         if (category) {
           where["category.slug"] = {
             // equals: category.slug,
-            in: [category.slug,...subcategoriesSlug],
+            in: [category.slug, ...subcategoriesSlug],
           };
         }
       }
