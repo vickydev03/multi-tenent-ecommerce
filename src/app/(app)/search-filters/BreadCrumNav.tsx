@@ -30,7 +30,7 @@ function BreadCrumNav({
         {activeSubCategoryName ? (
           <>
             <BreadcrumbItem>
-              <BreadcrumbLink className="font-medium underline text-primary text-xl">
+              <BreadcrumbLink asChild className="font-medium underline text-primary text-xl">
                 <Link href={`/${activeCategory}/`}>{activeCategoryName}</Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
