@@ -6,14 +6,16 @@ import {
   useSuspenseQuery,
 } from "@tanstack/react-query";
 import React from "react";
+import { useProdcutFilters } from "../../hooks/useProductFilterHook";
 
 function ProductList({ categorySlug }: { categorySlug: string }) {
-  console.log(categorySlug, "aarab sig");
-
+  // console.log(categorySlug, "aarab sig");
+  const [filters] = useProdcutFilters();
   const trpc = useTRPC();
   const { data } = useSuspenseQuery(
     trpc.products.getMany.queryOptions({
       categorySlug: categorySlug,
+      ...filters,
     })
   );
   return (
