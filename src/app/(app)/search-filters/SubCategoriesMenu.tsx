@@ -5,9 +5,9 @@ import React from "react";
 interface type {
   category: Category & { subCategories?: Category[] };
   isOpen: boolean;
-  position: { top: number; left: number };
+  // position: { top: number; left: number };
 }
-function SubCategoriesMenu({ category, isOpen, position }: type) {
+function SubCategoriesMenu({ category, isOpen }: type) {
   if (
     !isOpen ||
     category.subCategories?.length === 0 ||
@@ -19,7 +19,13 @@ function SubCategoriesMenu({ category, isOpen, position }: type) {
   const backGroundColor = category.color || "#f5f5f5";
 
   return (
-    <div className="fixed z-100 " style={position}>
+    <div
+      className=" absolute z-100 "
+      style={{
+        top: "100%",
+        left: 0,
+      }}
+    >
       <div className="h-10 " />
       <div className=" relative">
         <div className="w-60 h-3 " />

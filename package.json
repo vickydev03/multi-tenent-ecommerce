@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "generate:types": "payload generate:types",
-    "db:fresh": "payload migrate:fresh",
+    "db:fresh": "bunx payload migrate:fresh",
     "db:seed": "bun run src/seed.ts"
   },
   "dependencies": {
@@ -16,6 +16,7 @@
     "@payloadcms/db-mongodb": "^3.35.1",
     "@payloadcms/next": "^3.35.1",
     "@payloadcms/payload-cloud": "^3.35.1",
+    "@payloadcms/plugin-multi-tenant": "3.35.1",
     "@payloadcms/richtext-lexical": "^3.35.1",
     "@radix-ui/react-checkbox": "^1.2.3",
     "@radix-ui/react-dialog": "^1.1.11",
@@ -25,6 +26,7 @@
     "@radix-ui/react-slot": "^1.2.0",
     "@tanstack/react-query": "^5.74.7",
     "@trpc/client": "^11.1.1",
+    "@trpc/react-query": "^11.1.2",
     "@trpc/server": "^11.1.1",
     "@trpc/tanstack-react-query": "^11.1.1",
     "class-variance-authority": "^0.7.1",

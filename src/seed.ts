@@ -140,30 +140,41 @@ const categories = [
 const fn = async () => {
   const payload = await getPayload({ config });
 
-  for (const category of categories) {
-    const parentCategory = await payload.create({
-      collection: "categories",
-      data: {
-        name: category.name,
-        slug: category.slug,
-        parent: null,
-        color: category.color,
-      },
-    });
+  await payload.create({
+    collection: "users",
 
-    for (const subcategory of category.subcategories || []) {
-      await payload.create({
-        collection: "categories",
-        data: {
-          name: subcategory.name,
-          slug: subcategory.slug,
-          parent: parentCategory.id,
-        },
-      });
-    }
-  }
+    data: {
+      email: "ajaysingh131629@gmail.com",
+      password: "1234",
+      roles: ["super-admin"],
+      username: "admin",
+    },
+  });
+
+  // for (const category of categories) {
+  //   const parentCategory = await payload.create({
+  //     collection: "categories",
+  //     data: {
+  //       name: category.name,
+  //       slug: category.slug,
+  //       parent: null,
+  //       color: category.color,
+  //     },
+  //   });
+
+  //   for (const subcategory of category.subcategories || []) {
+  //     await payload.create({
+  //       collection: "categories",
+  //       data: {
+  //         name: subcategory.name,
+  //         slug: subcategory.slug,
+  //         parent: parentCategory.id,
+  //       },
+  //     });
+  //   }
+  // }
 };
 
 await fn();
 
-process.exit(0)
+process.exit(0);

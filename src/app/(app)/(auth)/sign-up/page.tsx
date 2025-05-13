@@ -1,4 +1,4 @@
-import SignUpView from "@/modules/auth/ui/view/SignupView";
+import {SignUpView} from "@/modules/auth/ui/view/SignupView";
 import React from "react";
 
 function page() {

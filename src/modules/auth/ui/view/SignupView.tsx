@@ -18,7 +18,7 @@ import { useRouter } from "next/navigation";
 
 // let formSchema = registerSchema;
 
-function SignUpView() {
+export function SignUpView() {
   const router = useRouter();
   const form = useForm<z.infer<typeof registerSchema>>({
     mode: "all",
@@ -37,13 +37,13 @@ function SignUpView() {
         toast.error(error.message);
       },
       onSuccess: () => {
-        router.push('/')
+        router.push("/");
       },
     })
   );
-  const onSubmit = (values: z.infer<typeof registerSchema>) => {
-    console.log(values);
-    register.mutate(values);
+  const onSubmit =  (values: z.infer<typeof registerSchema>) => {
+    console.log("Form values:", values); // check email value here
+     register.mutate(values);
   };
 
   return (
@@ -59,11 +59,7 @@ function SignUpView() {
           backgroundPosition: "center",
           backgroundSize: "cover",
         }}
-      >
-        
-      </div>
+      ></div>
     </div>
   );
 }
-
-export default SignUpView;

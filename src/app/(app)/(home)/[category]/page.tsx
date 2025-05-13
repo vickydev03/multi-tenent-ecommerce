@@ -10,6 +10,7 @@ import type { SearchParams } from "nuqs/server";
 import { loadProductFilters } from "@/modules/Products/hooks/searchParams";
 import ProductSort from "@/modules/Products/ui/components/ProductSort";
 import ProductListView from "@/modules/Products/views/ProductListView";
+import { DEFAULT_LIMIT } from "@/constant";
 
 interface Props {
   params: any;
@@ -22,10 +23,11 @@ async function page({ params, searchParams }: Props) {
   console.log(JSON.stringify(filters), "mai hu gians");
 
   const queryClient = getQueryClient();
-  void queryClient.prefetchQuery(
-    trpc.products.getMany.queryOptions({
+  void queryClient.prefetchInfiniteQuery(
+    trpc.products.getMany.infiniteQueryOptions({
       tags: [], // Assuming an empty array is a valid default for tags
       categorySlug: category,
+      limit:DEFAULT_LIMIT
     })
   );
   return (

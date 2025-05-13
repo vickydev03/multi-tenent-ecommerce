@@ -18,8 +18,8 @@ function CategoryDropdown({ category, isActive, isNavigationHovered }: type) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropDownRef = useRef<HTMLDivElement>(null);
 
-  const { getDropDownPosition } = useDropDownPosition(dropDownRef);
-  let dropdownPosition = getDropDownPosition();
+  // const { getDropDownPosition } = useDropDownPosition(dropDownRef);
+  // let dropdownPosition = getDropDownPosition();
 
   const mouseEnter = () => {
     if (category.subCategories) {
@@ -39,21 +39,23 @@ function CategoryDropdown({ category, isActive, isNavigationHovered }: type) {
       onMouseEnter={mouseEnter}
       onMouseLeave={mouseLeave}
     >
-      <Button
-        variant="elevated"
-        asChild
-        className={cn(
-          "h-11 px-su4 bg-transparent border-transparent rounded-full text-black transition-all",
-          "hover:bg-white hover:border-primary",
-          isActive && !isNavigationHovered && "bg-white border-primary",
-          isOpen &&
-            "bg-white border-primary shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-[4px] hover:-translate-y-[4px]"
-        )}
-      >
-        <Link href={`/${category.slug === "all" ? "" : category.slug}`}>
-          {category.name}
-        </Link>
-      </Button>
+      <div className="relative">
+        <Button
+          variant="elevated"
+          asChild
+          className={cn(
+            "h-11 px-su4 bg-transparent border-transparent rounded-full text-black transition-all",
+            "hover:bg-white hover:border-primary",
+            isActive && !isNavigationHovered && "bg-white border-primary",
+            isOpen &&
+              "bg-white border-primary shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:-translate-x-[4px] hover:-translate-y-[4px]"
+          )}
+        >
+          <Link href={`/${category.slug === "all" ? "" : category.slug}`}>
+            {category.name}
+          </Link>
+        </Button>
+      </div>
 
       {category.subCategories && category.subCategories.length > 0 && (
         <div
@@ -66,7 +68,7 @@ function CategoryDropdown({ category, isActive, isNavigationHovered }: type) {
       <SubCategoriesMenu
         category={category}
         isOpen={isOpen}
-        position={dropdownPosition}
+        // position={dropdownPosition}
       />
     </div>
   );
