@@ -1,4 +1,4 @@
-import { Category, Media } from "@/payload-types";
+import { Category, Media, Tenant } from "@/payload-types";
 import { baseProcedure, createTRPCRouter } from "@/trpc/init";
 import { CustomCategory } from "@/types";
 import { z } from "zod";
@@ -18,6 +18,7 @@ export const ProductRouter = createTRPCRouter({
         maxPrice: z.string().nullable().optional(),
         tags: z.any(),
         sort: z.any(),
+        tenantSlug: z.string().nullable().optional(),
       })
     )
 
@@ -48,6 +49,11 @@ export const ProductRouter = createTRPCRouter({
         };
       }
 
+      if (input.tenantSlug) {
+        where["tenant.slug"] = {
+          equals:input.tenantSlug
+        };
+      }    
       if (input.categorySlug) {
         const categoriesData = await ctx.payload.find({
           collection: "categories",
@@ -96,18 +102,20 @@ export const ProductRouter = createTRPCRouter({
 
       const data = await ctx.payload.find({
         collection: "Product",
-        depth: 1,
+        depth: 2,
         where,
         sort,
         page: input.cursor,
         limit: input.limit,
       });
+      console.log(data, "lalu");
 
       return {
         ...data,
         docs: data.docs.map((doc) => ({
           ...doc,
           image: doc.image as Media | null,
+          tenant: doc.tenant as Tenant & { image: Media | null },
         })),
       };
     }),

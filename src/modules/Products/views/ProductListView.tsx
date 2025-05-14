@@ -14,12 +14,14 @@ import ProductSort from "@/modules/Products/ui/components/ProductSort";
 import { ProductCardSkeleton } from "../ui/components/ProductCart";
 interface Prop {
   categorySlug?: string | undefined;
+  tenantSlug?: string;
+  narrowView?: boolean;
 }
 interface Props {
   params: any;
   searchParams: Promise<SearchParams>;
 }
-async function ProductListView({ categorySlug }: Prop) {
+async function ProductListView({ categorySlug, tenantSlug, narrowView }: Prop) {
   //   const { category } = await params;
 
   //   const filters = await loadProductFilters(searchParams);
@@ -46,8 +48,12 @@ async function ProductListView({ categorySlug }: Prop) {
           {/* </div> */}
         </div>
         <div className="bg-red-3000 lg:col-span-4 xl:col-span-6 ">
-          <Suspense fallback={<ProductListSkeleton />}>
-            <ProductList categorySlug={categorySlug} />
+          <Suspense fallback={<ProductListSkeleton narrowView={narrowView} />}>
+            <ProductList
+              categorySlug={categorySlug}
+              tenantSlug={tenantSlug}
+              narrowView={narrowView}
+            />
           </Suspense>
         </div>
       </div>

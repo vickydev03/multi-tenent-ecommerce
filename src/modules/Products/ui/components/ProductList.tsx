@@ -12,8 +12,17 @@ import ProductCart, { ProductCardSkeleton } from "./ProductCart";
 import { DEFAULT_LIMIT } from "@/constant";
 import { Button } from "@/components/ui/button";
 import { InboxIcon } from "lucide-react";
+import { cn } from "@/lib/utils";
 
-function ProductList({ categorySlug }: { categorySlug: string | undefined }) {
+function ProductList({
+  categorySlug,
+  tenantSlug,
+  narrowView,
+}: {
+  categorySlug: string | undefined;
+  tenantSlug?: string;
+  narrowView?: boolean;
+}) {
   // console.log(categorySlug, "aarab sig");
   const [filters] = useProdcutFilters();
   const trpc = useTRPC();
@@ -23,6 +32,7 @@ function ProductList({ categorySlug }: { categorySlug: string | undefined }) {
         {
           ...filters,
           categorySlug: categorySlug,
+          tenantSlug: tenantSlug,
           limit: DEFAULT_LIMIT,
         },
         {
@@ -32,6 +42,8 @@ function ProductList({ categorySlug }: { categorySlug: string | undefined }) {
         }
       )
     );
+  console.log(data, "lalu");
+
   if (data.pages?.[0]?.docs.length === 0) {
     return (
       <div className="border border-black border-dased  flex items-center  justify-center  p-8 flex-col   gap-y-4 bg-white w-full rounded-lg">
@@ -42,7 +54,12 @@ function ProductList({ categorySlug }: { categorySlug: string | undefined }) {
   }
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3  2xl:grid-cols-4 gap-4  ">
+      <div
+        className={cn(
+          "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3  2xl:grid-cols-4 gap-4",
+          narrowView && "lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3"
+        )}
+      >
         {data.pages
           .flatMap((e) => e.docs)
           .map((e) => (
@@ -50,8 +67,8 @@ function ProductList({ categorySlug }: { categorySlug: string | undefined }) {
               key={e.id}
               name={e.name}
               imageUrl={e.image?.url}
-              authorUsername="ajay"
-              authorImage={undefined}
+              authorUsername={e.tenant?.slug}
+              authorImage={e.tenant?.image?.url || ""}
               reviewCount={2}
               reviewRatting={5}
               price={e.price}
@@ -76,9 +93,18 @@ function ProductList({ categorySlug }: { categorySlug: string | undefined }) {
 
 export default ProductList;
 
-export const ProductListSkeleton = () => {
+export const ProductListSkeleton = ({
+  narrowView,
+}: {
+  narrowView: boolean |undefined;
+}) => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3  2xl:grid-cols-4 gap-4">
+    <div
+      className={cn(
+        "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3  2xl:grid-cols-4 gap-4",
+        narrowView && "lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-3"
+      )}
+    >
       {Array.from({ length: DEFAULT_LIMIT }).map((_, index) => (
         <ProductCardSkeleton key={index} />
       ))}

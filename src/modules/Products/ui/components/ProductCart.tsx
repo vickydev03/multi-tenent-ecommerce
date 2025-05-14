@@ -1,6 +1,8 @@
+import { generateTenant } from "@/lib/utils";
 import { StarIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 interface Props {
@@ -11,7 +13,7 @@ interface Props {
   reviewRatting: number;
   price: number;
   reviewCount: number;
-  authorImage: string | undefined;
+  authorImage?: string | null;
 }
 function ProductCart({
   id,
@@ -23,6 +25,12 @@ function ProductCart({
   price,
   authorImage,
 }: Props) {
+  const router=useRouter()
+  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    router.push(generateTenant(authorUsername))
+  };
   return (
     <Link href={`/product/${id}`}>
       <div className="hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-shadow border rounded-md bg-white overflow-hidden h-full w-full flex flex-col ">
@@ -37,7 +45,7 @@ function ProductCart({
         </div>
         <div className="flex flex-col p-4 gap-3 flex-1 border-y">
           <h2 className="text-lg font-medium line-clamp-">{name}</h2>
-          <div className="flex items-center gap-2" onClick={() => {}}>
+          <div className="flex items-center gap-2" onClick={ handleClick}>
             {authorImage && (
               <Image
                 alt={authorUsername}
