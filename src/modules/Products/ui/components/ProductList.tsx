@@ -8,11 +8,12 @@ import {
 } from "@tanstack/react-query";
 import React from "react";
 import { useProdcutFilters } from "../../hooks/useProductFilterHook";
-import ProductCart, { ProductCardSkeleton } from "./ProductCart";
+import { ProductCardSkeleton } from "./ProductCard";
 import { DEFAULT_LIMIT } from "@/constant";
 import { Button } from "@/components/ui/button";
 import { InboxIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import ProductCard from "./ProductCard";
 
 function ProductList({
   categorySlug,
@@ -63,7 +64,7 @@ function ProductList({
         {data.pages
           .flatMap((e) => e.docs)
           .map((e) => (
-            <ProductCart
+            <ProductCard
               key={e.id}
               name={e.name}
               imageUrl={e.image?.url}
@@ -72,6 +73,7 @@ function ProductList({
               reviewCount={2}
               reviewRatting={5}
               price={e.price}
+              id={e.id}
             />
           ))}
       </div>
@@ -96,7 +98,7 @@ export default ProductList;
 export const ProductListSkeleton = ({
   narrowView,
 }: {
-  narrowView: boolean |undefined;
+  narrowView: boolean | undefined;
 }) => {
   return (
     <div

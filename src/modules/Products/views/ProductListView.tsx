@@ -11,7 +11,7 @@ import type { SearchParams } from "nuqs/server";
 // import { loadProductFilters } from "@/modules/Products/hooks/useProductFilterHook";
 import { loadProductFilters } from "@/modules/Products/hooks/searchParams";
 import ProductSort from "@/modules/Products/ui/components/ProductSort";
-import { ProductCardSkeleton } from "../ui/components/ProductCart";
+import { ProductCardSkeleton } from "../ui/components/ProductCard";
 interface Prop {
   categorySlug?: string | undefined;
   tenantSlug?: string;
