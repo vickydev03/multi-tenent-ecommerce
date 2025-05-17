@@ -4,11 +4,11 @@ import { CircleXIcon } from "lucide-react";
 import React from "react";
 interface Props {
   total: number | undefined;
-  onCheckOut: () => void;
+  onPurchase: () => void;
   isCanceled: boolean;
   isPending: boolean;
 }
-function CheckOutSidebar({ total, onCheckOut, isCanceled, isPending }: Props) {
+function CheckOutSidebar({ total, onPurchase, isCanceled, isPending }: Props) {
   return (
     <div className=" border rounded-md overflow-hidden bg-white flex flex-col">
       <div className=" flex items-center justify-between p-4 border-b ">
@@ -19,7 +19,7 @@ function CheckOutSidebar({ total, onCheckOut, isCanceled, isPending }: Props) {
         <Button
           variant={"elevated"}
           disabled={isPending}
-          onClick={onCheckOut}
+          onClick={onPurchase}
           size={"lg"}
           className="text-basew-full text-white bg-primary hover:bg-pink-400 hover:text-primary"
         >
