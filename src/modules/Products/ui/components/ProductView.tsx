@@ -106,7 +106,19 @@ function ProductView({ productId, tenantSlug }: Props) {
             <div className="border-t lg:border-t-0 lg:border-l h-full ">
               <div className="flex flex-col gap-4 p-6 border-b ">
                 <div className="flex flex-row  ic gap-2  ">
-                  <CartButton productId={productId} tenantSlug={tenantSlug} />
+                  {data.isPurchased ? (
+                    <Button
+                      className="flex-1 bg-white font-medium"
+                      variant={"elevated"}
+                      asChild
+                    >
+                      <Link href={`/library/${productId}`} prefetch>
+                        View in Library
+                      </Link>
+                    </Button>
+                  ) : (
+                    <CartButton productId={productId} tenantSlug={tenantSlug} />
+                  )}
                   <Button
                     variant={"elevated"}
                     disabled={false}

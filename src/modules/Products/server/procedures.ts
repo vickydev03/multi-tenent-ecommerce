@@ -3,7 +3,7 @@ import { baseProcedure, createTRPCRouter } from "@/trpc/init";
 import { CustomCategory } from "@/types";
 import { z } from "zod";
 import type { Sort, Where } from "payload";
-
+import { headers as getHeaders } from "next/headers";
 import { DEFAULT_LIMIT } from "@/constant";
 
 export const ProductRouter = createTRPCRouter({
@@ -14,14 +14,42 @@ export const ProductRouter = createTRPCRouter({
       })
     )
     .query(async ({ ctx, input }) => {
+      const headers = await getHeaders();
+      const sessions = await ctx.payload.auth({ headers });
+
       const product = await ctx.payload.findByID({
         collection: "Product",
         id: input.id,
       });
+      let isPurchased = false;
+
+      if (sessions.user) {
+        const OderData = await ctx.payload.find({
+          collection: "orders",
+          pagination: false,
+          limit: 1,
+          where: {
+            and: [
+              {
+                product: {
+                  equals: input.id,
+                },
+              },
+              {
+                user: {
+                  equals: sessions.user.id,
+                },
+              },
+            ],
+          },
+        });
+        isPurchased = !!OderData.docs[0];
+      }
 
       return {
         ...product,
         image: product.image as Media | null,
+        isPurchased,
         tenant: product.tenant as Tenant & { image: Media | null },
       };
     }),

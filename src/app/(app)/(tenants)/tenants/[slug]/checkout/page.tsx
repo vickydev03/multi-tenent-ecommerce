@@ -7,7 +7,6 @@ interface Props {
 
 async function page({ params }: Props) {
   const { slug } = await params;
-
   return <CheckOutView tenantSlug={slug} />;
 }
 
