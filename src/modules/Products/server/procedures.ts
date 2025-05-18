@@ -93,7 +93,7 @@ export const ProductRouter = createTRPCRouter({
         tenant: product.tenant as Tenant & { image: Media | null },
         reviewRating,
         reviewCount: reviews.totalDocs,
-        ratingDistribution
+        ratingDistribution,
       };
     }),
   getMany: baseProcedure
@@ -195,6 +195,9 @@ export const ProductRouter = createTRPCRouter({
         sort,
         page: input.cursor,
         limit: input.limit,
+        select: {
+          content:false
+        },
       });
       console.log(data, "lalu");
 

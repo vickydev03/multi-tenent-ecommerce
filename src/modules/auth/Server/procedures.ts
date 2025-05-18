@@ -246,7 +246,7 @@ export const authRouter = createTRPCRouter({
         return loginData;  // Return user data along with token
 
       } catch (error) {
-        console.error("Registration Error:", error);
+        console.log("Registration Error:", error);
         throw new TRPCError({
           code: "INTERNAL_SERVER_ERROR",
           message: "An error occurred while registering the user",

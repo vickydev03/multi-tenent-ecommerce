@@ -20,6 +20,9 @@ export const CheckOutRouter = createTRPCRouter({
       const product = await ctx.payload.find({
         collection: "Product",
         depth: 2,
+        select: {
+          content: false,
+        },
         where: {
           and: [
             {

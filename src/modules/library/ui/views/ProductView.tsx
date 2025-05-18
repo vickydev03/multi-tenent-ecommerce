@@ -39,14 +39,18 @@ function ProductView({ productId }: Props) {
           <div className="lg:col-span-2">
             <div className="p-4  bg-white rounded-md border gap-4 ">
               {/* <Suspense fallback={<div>Loading reviews...</div>}> */}
-                <ReviewSidebar productId={productId} />
+              <ReviewSidebar productId={productId} />
               {/* </Suspense> */}
             </div>
           </div>
           <div className="lg:col-span-5">
-            <p className=" italic  font-medium text-muted-foreground">
-              No special content
-            </p>
+            {data.content ? (
+              <p>{data.content}</p>
+            ) : (
+              <p className=" italic  font-medium text-muted-foreground">
+                No special content
+              </p>
+            )}
           </div>
         </div>
       </section>

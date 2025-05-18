@@ -1,3 +1,4 @@
+import { isSuperAdmin } from "@/lib/access";
 import type { CollectionConfig } from "payload";
 
 export const Tenants: CollectionConfig = {
@@ -5,7 +6,11 @@ export const Tenants: CollectionConfig = {
   admin: {
     useAsTitle: "slug",
   },
-//   auth: true,
+  access: {
+    create: ({ req }) => isSuperAdmin(req.user),
+    delete: ({ req }) => isSuperAdmin(req.user),
+  },
+  //   auth: true,
   fields: [
     {
       name: "name",
@@ -22,6 +27,9 @@ export const Tenants: CollectionConfig = {
       index: true,
       required: true,
       unique: true,
+      access: {
+        update: ({ req }) => isSuperAdmin(req.user),
+      },
       admin: {
         description: "this is the subdomain of (e.g. [slug].nexttrade.com) ",
       },
@@ -35,13 +43,18 @@ export const Tenants: CollectionConfig = {
       name: "stripeAccountId",
       type: "text",
       required: true,
-      admin: { readOnly: true },
+      // admin: { readOnly: true },
+      access: {
+        update: ({ req }) => isSuperAdmin(req.user),
+      },
+      admin: {
+        description: "Stripe Account Id associated with your shop",
+      },
     },
     {
       name: "stripeDetailSubmitted",
       type: "checkbox",
       admin: {
-        readOnly: true,
         description:
           "You can not create products until you submit your account details",
       },
