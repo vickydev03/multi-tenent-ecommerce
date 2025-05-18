@@ -9,8 +9,59 @@ import { z } from "zod";
 import type { Sort, Where } from "payload";
 import { headers as getHeaders } from "next/headers";
 import { DEFAULT_LIMIT } from "@/constant";
+import { TRPCError } from "@trpc/server";
 
 export const libraryRouter = createTRPCRouter({
+  getOne: protectedProcedure
+    .input(
+      z.object({
+        productId: z.string(),
+      })
+    )
+
+    .query(async ({ ctx, input }) => {
+      const data = await ctx.payload.find({
+        collection: "orders",
+
+        where: {
+          and: [
+            {
+              product: {
+                equals: input.productId,
+              },
+            },
+            {
+              user: {
+                equals: ctx.session.user.id,
+              },
+            },
+          ],
+        },
+      });
+
+      const order = data.docs[0];
+
+      if (!order) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Order not found",
+        });
+      }
+
+      const productData = await ctx.payload.findByID({
+        collection: "Product",
+        id: input.productId,
+      });
+
+      if (!productData) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Product not found",
+        });
+      }
+
+      return productData;
+    }),
   getMany: protectedProcedure
     .input(
       z.object({
@@ -34,15 +85,15 @@ export const libraryRouter = createTRPCRouter({
       });
 
       const productIds = data.docs.map((order) => order.product);
-      console.log(productIds,"this is data from order procedure");
-      
+      console.log(productIds, "this is data from order procedure");
+
       // console.log(data, "lalu");
       const productData = await ctx.payload.find({
         collection: "Product",
         pagination: false,
         where: {
           id: {
-            in:productIds
+            in: productIds,
           },
         },
       });
