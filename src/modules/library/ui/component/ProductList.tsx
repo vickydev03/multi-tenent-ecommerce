@@ -57,8 +57,8 @@ function ProductList() {
               imageUrl={e.image?.url}
               authorUsername={e.tenant?.slug}
               authorImage={e.tenant?.image?.url || ""}
-              reviewCount={2}
-              reviewRatting={5}
+              reviewCount={e.reviewCount}
+              reviewRatting={e.reviewRating}
               price={e.price}
               id={e.id}
             />
