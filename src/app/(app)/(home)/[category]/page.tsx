@@ -7,6 +7,7 @@ import type { SearchParams } from "nuqs/server";
 import { loadProductFilters } from "@/modules/Products/hooks/searchParams";
 import ProductListView from "@/modules/Products/views/ProductListView";
 import { DEFAULT_LIMIT } from "@/constant";
+export const dynamic="force-dynamic"
 
 interface Props {
   params: Promise<{category:string}>;

@@ -38,7 +38,7 @@ function ReviewForm({ productId, intialData }: Props) {
   const createReview = useMutation(
     trpc.reviews.create.mutationOptions({
       onSuccess: () => {
-        queryClient.invalidateQueries;
+        queryClient.invalidateQueries();
         trpc.reviews.getOne.queryOptions({
           productId,
         });
@@ -54,7 +54,7 @@ function ReviewForm({ productId, intialData }: Props) {
   const updateReview = useMutation(
     trpc.reviews.update.mutationOptions({
       onSuccess: () => {
-        queryClient.invalidateQueries;
+        queryClient.invalidateQueries();
         trpc.reviews.getOne.queryOptions({
           productId,
         });

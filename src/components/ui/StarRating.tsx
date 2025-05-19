@@ -75,6 +75,15 @@ export default function StarRating({
   );
 }
 
+interface StarProps {
+  full: boolean;
+  onRate: () => void;
+  onHoverIn: () => void;
+  onHoverOut: () => void;
+  color: string;
+  size: number;
+  disabled: boolean;
+}
 function Star({
   onRate,
   full,
@@ -83,7 +92,7 @@ function Star({
   color,
   size,
   disabled,
-}: any) {
+}: StarProps) {
   const starStyle = {
     width: `${size}px`,
     height: `${size}px`,

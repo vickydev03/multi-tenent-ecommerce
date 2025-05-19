@@ -173,16 +173,23 @@ export const ProductRouter = createTRPCRouter({
           },
         });
 
-        const formattedData: CustomCategory[] = categoriesData.docs.map(
-          (doc: any) => ({
-            ...doc,
-            subCategories:
-              doc?.subCategories.docs ??
-              []?.map((doc) => ({ ...(doc as Category) })),
-            subcategories: undefined,
-          })
-        );
-        const subcategoriesSlug: any = [];
+        // const formattedData: CustomCategory[] = categoriesData.docs.map(
+        //   (doc: any) => ({
+        //     ...doc,
+        //     subCategories:
+        //       doc?.subCategories.docs ??
+        //       []?.map((doc) => ({ ...(doc as Category) })),
+        //     subcategories: undefined,
+        //   })
+        // );
+
+        const formattedData: CustomCategory[] = categoriesData.docs.map((doc: Category) => ({
+          ...doc,
+          subCategories: doc?.subCategories?.docs?.map((sub: unknown) => sub as Category) ?? [],
+          subcategories: undefined,
+        }));
+        
+        const subcategoriesSlug: string[] = [];
 
         const category = formattedData[0];
         if (category) {

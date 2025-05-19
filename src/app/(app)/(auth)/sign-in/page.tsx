@@ -1,6 +1,6 @@
 import SignInView from "@/modules/auth/ui/view/SignInView";
 import React from "react";
-
+export const dynamic="force-dynamic"
 import { caller } from "@/trpc/server";
 import { redirect } from "next/navigation";
 
