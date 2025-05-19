@@ -11,6 +11,7 @@
     "db:fresh": "bunx payload migrate:fresh",
     "db:seed": "bun run src/seed.ts"
   },
+  
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
     "@payloadcms/db-mongodb": "^3.35.1",

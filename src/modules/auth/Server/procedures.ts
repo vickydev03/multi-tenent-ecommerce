@@ -146,7 +146,8 @@ import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { headers as getHeaders, cookies as getCookies } from "next/headers";
 
-import { AUTH_COOKIE } from "../constants";  // Ensure AUTH_COOKIE is defined properly
+import { AUTH_COOKIE } from "../constants"; // Ensure AUTH_COOKIE is defined properly
+import { stripe } from "@/lib/stripe";
 
 // Define Input Schemas using zod for validation
 const registerSchema = z.object({
@@ -171,7 +172,7 @@ const loginSchema = z.object({
 export const authRouter = createTRPCRouter({
   // Session retrieval
   session: baseProcedure.query(async ({ ctx }) => {
-    const headers = await getHeaders();  // Retrieve headers for session
+    const headers = await getHeaders(); // Retrieve headers for session
     const session = await ctx.payload.auth({ headers });
     return session;
   }),
@@ -198,12 +199,20 @@ export const authRouter = createTRPCRouter({
         }
 
         // Create a new tenant (assuming you have tenant logic in place)
+
+        const account = await stripe.accounts.create({});
+        if (!account) {
+          throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "Failed to create Stripe account",
+          });
+        }
         const tenant = await ctx.payload.create({
           collection: "tenants",
           data: {
             name: input.username,
             slug: input.username,
-            stripeAccountId: "test",  // Example; replace with actual stripe logic
+            stripeAccountId: account.id, // Example; replace with actual stripe logic
           },
         });
 
@@ -243,8 +252,7 @@ export const authRouter = createTRPCRouter({
           path: "/",
         });
 
-        return loginData;  // Return user data along with token
-
+        return loginData; // Return user data along with token
       } catch (error) {
         console.log("Registration Error:", error);
         throw new TRPCError({
@@ -255,49 +263,47 @@ export const authRouter = createTRPCRouter({
     }),
 
   // Login user
-  login: baseProcedure
-    .input(loginSchema)
-    .mutation(async ({ input, ctx }) => {
-      try {
-        const loginData = await ctx.payload.login({
-          collection: "users",
-          data: {
-            email: input.email,
-            password: input.password,
-          },
-        });
+  login: baseProcedure.input(loginSchema).mutation(async ({ input, ctx }) => {
+    try {
+      const loginData = await ctx.payload.login({
+        collection: "users",
+        data: {
+          email: input.email,
+          password: input.password,
+        },
+      });
 
-        if (!loginData.token) {
-          throw new TRPCError({
-            code: "UNAUTHORIZED",
-            message: "Invalid email or password",
-          });
-        }
-
-        // Set authentication cookie
-        const cookies = await getCookies();
-        cookies.set({
-          name: AUTH_COOKIE,
-          value: loginData.token,
-          httpOnly: true,
-          path: "/",
-        });
-
-        return loginData;  // Return user data and token
-      } catch (error) {
-        console.error("Login Error:", error);
+      if (!loginData.token) {
         throw new TRPCError({
-          code: "INTERNAL_SERVER_ERROR",
-          message: "An error occurred while logging in",
+          code: "UNAUTHORIZED",
+          message: "Invalid email or password",
         });
       }
-    }),
+
+      // Set authentication cookie
+      const cookies = await getCookies();
+      cookies.set({
+        name: AUTH_COOKIE,
+        value: loginData.token,
+        httpOnly: true,
+        path: "/",
+      });
+
+      return loginData; // Return user data and token
+    } catch (error) {
+      console.error("Login Error:", error);
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "An error occurred while logging in",
+      });
+    }
+  }),
 
   // Logout user
   logout: baseProcedure.mutation(async ({ ctx }) => {
     try {
       const cookies = await getCookies();
-      cookies.delete(AUTH_COOKIE);  // Remove the authentication cookie
+      cookies.delete(AUTH_COOKIE); // Remove the authentication cookie
       return { message: "Logged out successfully" };
     } catch (error) {
       console.error("Logout Error:", error);
@@ -308,4 +314,3 @@ export const authRouter = createTRPCRouter({
     }
   }),
 });
-

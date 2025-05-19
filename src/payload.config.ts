@@ -19,6 +19,7 @@ import { Tenants } from "./collections/Tenants";
 import { Orders } from "./collections/Order";
 import { Review } from "./collections/Reviews";
 import { isSuperAdmin } from "./lib/access";
+
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
@@ -28,8 +29,20 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
+    components: {
+      beforeNavLinks: ["@/components/ui/StripeVerify"],
+    },
   },
-  collections: [Users, Media, Categories, Products, Tags, Tenants,Orders,Review],
+  collections: [
+    Users,
+    Media,
+    Categories,
+    Products,
+    Tags,
+    Tenants,
+    Orders,
+    Review,
+  ],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
@@ -48,10 +61,7 @@ export default buildConfig({
       tenantsArrayField: {
         includeDefaultField: false,
       },
-      userHasAccessToAllTenants: (user) =>isSuperAdmin(user)
-       
+      userHasAccessToAllTenants: (user) => isSuperAdmin(user),
     }),
   ],
 });
-
-
