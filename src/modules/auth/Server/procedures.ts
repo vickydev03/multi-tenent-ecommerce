@@ -249,6 +249,9 @@ export const authRouter = createTRPCRouter({
           name: AUTH_COOKIE,
           value: loginData.token,
           httpOnly: true,
+          sameSite: "none",
+          domain: process.env.NEXT_PUBLIC_ROOT_DOMAIN,
+          secure:process.env.NODE_ENV==="production",
           path: "/",
         });
 
@@ -287,6 +290,9 @@ export const authRouter = createTRPCRouter({
         value: loginData.token,
         httpOnly: true,
         path: "/",
+        sameSite: "none",
+        domain: process.env.NEXT_PUBLIC_ROOT_DOMAIN,
+        secure:process.env.NODE_ENV==="production",
       });
 
       return loginData; // Return user data and token

@@ -6,10 +6,16 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function generateTenant(tenant: string) {
-  return `/tenants/${tenant}`;
+  if (process.env.NODE_ENV === "development") {
+    return `${process.env.NEXT_PUBLIC_URL}/tenants/${tenant}`;
+  }
+
+  const protocol = "https";
+  let domain = process.env.NEXT_PUBLIC_ROOT_DOMAIN;
+  return `${protocol}://${tenant}.${domain}`;
 }
 
-export function formateCurrency(value: number | string|undefined) {
+export function formateCurrency(value: number | string | undefined) {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: "USD",
