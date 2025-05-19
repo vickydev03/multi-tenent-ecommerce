@@ -156,7 +156,7 @@ function ReviewForm({ productId, intialData }: Props) {
           onClick={() => setIsPreview(false)}
           size={"lg"}
           variant={"elevated"}
-          disabled={createReview.isPending ||createReview.isPending}
+          disabled={createReview.isPending || createReview.isPending}
           type="button"
           className="w-fit mt-4"
         >
@@ -168,3 +168,28 @@ function ReviewForm({ productId, intialData }: Props) {
 }
 
 export default ReviewForm;
+
+export const ReviewFormSkeleton = () => {
+  return (
+    <div className="flex flex-col gap-y-4 animate-pulse">
+      {/* Label */}
+      <div className="h-4 w-1/3 bg-muted rounded" />
+
+      {/* Star Rating Skeleton */}
+      <div className="flex gap-2">
+        {Array.from({ length: 5 }).map((_, idx) => (
+          <div key={idx} className="h-6 w-6 bg-muted rounded-full" />
+        ))}
+      </div>
+
+      {/* Textarea */}
+      <div className="h-24 bg-muted rounded-md" />
+
+      {/* Submit Button */}
+      <div className="w-32 h-10 bg-muted rounded-lg" />
+
+      {/* Optional Preview Button */}
+      <div className="w-20 h-10 bg-muted rounded-lg mt-2" />
+    </div>
+  );
+};

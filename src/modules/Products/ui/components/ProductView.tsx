@@ -1,21 +1,23 @@
 "use client";
 
-// to do
-
-// add real rattings
-
 import { StarRating } from "@/app/(app)/(home)/_component/StarRatting";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { formateCurrency, generateTenant } from "@/lib/utils";
 import { useTRPC } from "@/trpc/client";
+
+import {
+  defaultJSXConverters,
+  RichText,
+} from "@payloadcms/richtext-lexical/react";
 import { useSuspenseQuery } from "@tanstack/react-query";
-import { CheckCheckIcon, LinkIcon, StarIcon } from "lucide-react";
+import { CheckCheckIcon, LinkIcon, LoaderIcon, StarIcon } from "lucide-react";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import React, { Fragment, useState } from "react";
 import { toast } from "sonner";
+import { SerializedEditorState } from "lexical";
 // import CartButton from "./CartButton";
 
 const CartButton = dynamic(() => import("./CartButton"), {
@@ -67,9 +69,17 @@ function ProductView({ productId, tenantSlug }: Props) {
                   href={generateTenant(tenantSlug)}
                   className=" flex items-center gap-2"
                 >
-                  {data.tenant?.image?.url && (
+                  {data.tenant?.image?.url ? (
                     <Image
                       src={data.tenant?.image.url}
+                      alt={data.tenant.name}
+                      width={20}
+                      height={20}
+                      className="rounded-full border shrink-0 size-[20px]"
+                    />
+                  ) : (
+                    <Image
+                      src={"/placeholder.png"}
                       alt={data.tenant.name}
                       width={20}
                       height={20}
@@ -105,7 +115,10 @@ function ProductView({ productId, tenantSlug }: Props) {
             </div>
             <div className="p-6 ">
               {data.description ? (
-                <p>{data.description}</p>
+                <RichText
+                  data={data.description as unknown as SerializedEditorState}
+                  converters={defaultJSXConverters}
+                />
               ) : (
                 <p className=" font-medium text-muted-foreground italic ">
                   No description provoided
@@ -187,3 +200,12 @@ function ProductView({ productId, tenantSlug }: Props) {
 }
 
 export default ProductView;
+
+export const ProductViewSkeleton = () => {
+  return (
+    <div className="border border-black border-dased  flex items-center  justify-center  p-8 flex-col   gap-y-4 bg-white w-full rounded-lg">
+      <LoaderIcon className="" />
+      <p className="text-base font-medium "> Loading ...</p>
+    </div>
+  );
+};

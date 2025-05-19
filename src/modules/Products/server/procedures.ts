@@ -5,6 +5,8 @@ import { z } from "zod";
 import type { Sort, Where } from "payload";
 import { headers as getHeaders } from "next/headers";
 import { DEFAULT_LIMIT } from "@/constant";
+import { trpc } from "@/trpc/server";
+import { TRPCError } from "@trpc/server";
 
 export const ProductRouter = createTRPCRouter({
   getOne: baseProcedure
@@ -21,6 +23,13 @@ export const ProductRouter = createTRPCRouter({
         collection: "Product",
         id: input.id,
       });
+
+      if (product.isArchived) {
+        throw new TRPCError({
+          code: "NOT_FOUND",
+          message: "Product not found",
+        });
+      }
       let isPurchased = false;
 
       if (sessions.user) {
@@ -111,7 +120,11 @@ export const ProductRouter = createTRPCRouter({
     )
 
     .query(async ({ ctx, input }) => {
-      const where: Where = {};
+      const where: Where = {
+        isArchived: {
+          not_equals: true,
+        },
+      };
       // console.log(input, "singhajay");
       let sort: Sort = "createdAt";
 
@@ -140,6 +153,12 @@ export const ProductRouter = createTRPCRouter({
       if (input.tenantSlug) {
         where["tenant.slug"] = {
           equals: input.tenantSlug,
+        };
+      } else {
+        // this means we are loading product on public front since there is  no tenant slug
+        // make sure to not load  product set to isPrivate true using reverse not_equals
+        where["isPrivate"] = {
+          not_equals: true,
         };
       }
       if (input.categorySlug) {
@@ -196,7 +215,7 @@ export const ProductRouter = createTRPCRouter({
         page: input.cursor,
         limit: input.limit,
         select: {
-          content:false
+          content: false,
         },
       });
       console.log(data, "lalu");

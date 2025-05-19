@@ -16,9 +16,11 @@ function ReviewSidebar({ productId }: Props) {
     trpc.reviews.getOne.queryOptions({ productId })
   );
 
-  return <>
-   <ReviewForm productId={productId} intialData={data}/>
-  </>
+  return (
+    <>
+      <ReviewForm productId={productId} intialData={data} />
+    </>
+  );
 }
 
 export default ReviewSidebar;

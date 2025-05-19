@@ -227,7 +227,11 @@ export interface Product {
   id: string;
   tenant?: (string | null) | Tenant;
   name: string;
-  description?: string | null;
+  description?:
+    | {
+        [k: string]: unknown;
+      }[]
+    | null;
   /**
    * price in USD
    */
@@ -239,7 +243,29 @@ export interface Product {
   /**
    * Protected content only visible to customers after purchase. Add product documentation,downloadable files,getting started guides,and bonus materials. support markdown formating
    */
-  content?: string | null;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * If checked, this product will be archived
+   */
+  isArchived?: boolean | null;
+  /**
+   * If checked, this product will be private to your private store only
+   */
+  isPrivate?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -445,6 +471,8 @@ export interface ProductSelect<T extends boolean = true> {
   refundPolicy?: T;
   tags?: T;
   content?: T;
+  isArchived?: T;
+  isPrivate?: T;
   updatedAt?: T;
   createdAt?: T;
 }

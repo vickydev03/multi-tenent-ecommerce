@@ -13,12 +13,12 @@ export const Products: CollectionConfig = {
       return Boolean(tenant?.stripeDetailSubmitted);
     },
     delete: ({ req }) => isSuperAdmin(req.user),
-    update: ({ req, id }) => {
-      if (isSuperAdmin(req.user)) return true;
+    // update: ({ req, id }) => {
+    //   if (isSuperAdmin(req.user)) return true;
 
-      // it will allow the user to update theier info themself
-      return req.user?.id === id;
-    },
+    //   // it will allow the user to update theier info themself
+    //   return req.user?.id === id;
+    // },
   },
   admin: {
     useAsTitle: "name",
@@ -32,7 +32,7 @@ export const Products: CollectionConfig = {
     },
     {
       name: "description",
-      type: "text",
+      type: "richText",
     },
     {
       name: "price",
@@ -66,12 +66,30 @@ export const Products: CollectionConfig = {
       hasMany: true,
     },
     {
-      // to-do rich text
       name: "content",
-      type: "textarea",
+      type: "richText",
       admin: {
         description:
           "Protected content only visible to customers after purchase. Add product documentation,downloadable files,getting started guides,and bonus materials. support markdown formating",
+      },
+    },
+    {
+      name: "isArchived",
+      label: "archive",
+      defaultValue: false,
+      type: "checkbox",
+      admin: {
+        description: "If checked, this product will be archived",
+      },
+    },
+    {
+      name: "isPrivate",
+      label: "private",
+      defaultValue: false,
+      type: "checkbox",
+      admin: {
+        description:
+          "If checked, this product will be private to your private store only",
       },
     },
   ],
