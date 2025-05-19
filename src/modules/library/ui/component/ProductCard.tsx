@@ -20,7 +20,6 @@ function ProductCard({
   authorUsername,
   reviewCount,
   reviewRatting,
-  price,
   authorImage,
 }: Props) {
   // const router = useRouter();

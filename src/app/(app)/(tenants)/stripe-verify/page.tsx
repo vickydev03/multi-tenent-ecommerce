@@ -3,12 +3,12 @@ import { useTRPC } from "@/trpc/client";
 import { useMutation } from "@tanstack/react-query";
 import { LoaderIcon } from "lucide-react";
 import React, { useEffect } from "react";
-
-function page() {
-  const trpc = useTRPC();
+export const dynamic = "force-dynamic";
+function StripeVerifyPage() {
+  const useTrpc = useTRPC();
 
   const { mutate: verify } = useMutation(
-    trpc.checkout.verify.mutationOptions({
+    useTrpc.checkout.verify.mutationOptions({
       onSuccess: (data) => {
         window.location.href = data.url;
       },
@@ -29,4 +29,4 @@ function page() {
   );
 }
 
-export default page;
+export default StripeVerifyPage;

@@ -1,19 +1,15 @@
 // "use client";
-import { caller, trpc } from "@/trpc/server";
+import { trpc } from "@/trpc/server";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import React, { Suspense } from "react";
+import React from "react";
 import { getQueryClient } from "@/trpc/server";
-import ProductList from "@/modules/Products/ui/components/ProductList";
-import ProductFilters from "@/modules/Products/ui/components/ProductFilters";
 import type { SearchParams } from "nuqs/server";
-// import { loadProductFilters } from "@/modules/Products/hooks/useProductFilterHook";
 import { loadProductFilters } from "@/modules/Products/hooks/searchParams";
-import ProductSort from "@/modules/Products/ui/components/ProductSort";
 import ProductListView from "@/modules/Products/views/ProductListView";
 import { DEFAULT_LIMIT } from "@/constant";
 
 interface Props {
-  params: any;
+  params: Promise<{category:string}>;
   searchParams: Promise<SearchParams>;
 }
 async function page({ params, searchParams }: Props) {
@@ -27,18 +23,14 @@ async function page({ params, searchParams }: Props) {
     trpc.products.getMany.infiniteQueryOptions({
       tags: [], // Assuming an empty array is a valid default for tags
       categorySlug: category,
-      limit:DEFAULT_LIMIT
+      limit: DEFAULT_LIMIT,
     })
   );
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-     <ProductListView categorySlug={category}/>
+      <ProductListView categorySlug={category} />
     </HydrationBoundary>
   );
 }
 
 export default page;
-
-const Loader = () => {
-  return <p>loading</p>;
-};

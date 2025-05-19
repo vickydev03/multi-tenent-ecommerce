@@ -7,7 +7,7 @@ import { toast } from "sonner";
 import { generateTenant } from "@/lib/utils";
 import CheckOutItem from "./CheckOutItem";
 import CheckOutSidebar from "./CheckOutSidebar";
-import { InboxIcon, Loader, LoaderIcon } from "lucide-react";
+import { InboxIcon, LoaderIcon } from "lucide-react";
 import { useCheckoutStates } from "../../hooks/use-checkout-state";
 import { useRouter } from "next/navigation";
 interface Props {
@@ -63,7 +63,7 @@ function CheckOutView({ tenantSlug }: Props) {
       clearCart();
       toast.warning("Invalid product found,Cart cleared");
     }
-  }, [error, clearAllCarts]);
+  }, [error, clearAllCarts,clearCart]);
 
   if (isLoading) {
     return (

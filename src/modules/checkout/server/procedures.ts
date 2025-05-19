@@ -1,4 +1,4 @@
-import { Category, Media, Tenant } from "@/payload-types";
+import {  Media, Tenant } from "@/payload-types";
 import {
   baseProcedure,
   createTRPCRouter,

@@ -4,7 +4,6 @@ import { useTRPC } from "@/trpc/client";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import React from "react";
 import ReviewForm from "./ReviewForm";
-import StarRating from "@/components/ui/StarRating";
 
 interface Props {
   productId: string;

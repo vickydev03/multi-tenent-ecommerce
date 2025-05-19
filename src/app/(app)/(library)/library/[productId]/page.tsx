@@ -1,4 +1,3 @@
-import { DEFAULT_LIMIT } from "@/constant";
 import ProductView, {
   ProductViewSkeleton,
 } from "@/modules/library/ui/views/ProductView";

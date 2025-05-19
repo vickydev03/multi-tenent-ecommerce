@@ -11,7 +11,7 @@ export function generateTenant(tenant: string) {
   }
 
   const protocol = "https";
-  let domain = process.env.NEXT_PUBLIC_ROOT_DOMAIN;
+  const domain = process.env.NEXT_PUBLIC_ROOT_DOMAIN;
   return `${protocol}://${tenant}.${domain}`;
 }
 

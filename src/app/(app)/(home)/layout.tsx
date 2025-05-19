@@ -2,18 +2,12 @@
 import Navbar from "./_component/Navbar";
 import Footer from "./_component/Footer";
 import SearchFilters from "../search-filters";
-import configPromise from "@payload-config";
-import { getPayload } from "payload";
-import { Category } from "@/payload-types";
-import { CustomCategory } from "@/types";
 import { getQueryClient, trpc } from "@/trpc/server";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import { Suspense } from "react";
 import SearchInput from "../search-filters/Search-input";
 
-interface type {
-  subCategories: any;
-}
+
 async function layout({ children }: { children: React.ReactNode }) {
   const queryClient = getQueryClient();
 

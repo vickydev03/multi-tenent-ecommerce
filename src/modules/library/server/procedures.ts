@@ -1,13 +1,9 @@
-import { Category, Media, Tenant } from "@/payload-types";
+import {  Media, Tenant } from "@/payload-types";
 import {
-  baseProcedure,
   createTRPCRouter,
   protectedProcedure,
 } from "@/trpc/init";
-import { CustomCategory } from "@/types";
 import { z } from "zod";
-import type { Sort, Where } from "payload";
-import { headers as getHeaders } from "next/headers";
 import { DEFAULT_LIMIT } from "@/constant";
 import { TRPCError } from "@trpc/server";
 

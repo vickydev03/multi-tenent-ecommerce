@@ -1,25 +1,13 @@
-// "use client";
-import { caller, trpc } from "@/trpc/server";
-import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 import React, { Suspense } from "react";
-import { getQueryClient } from "@/trpc/server";
 import ProductList, {
   ProductListSkeleton,
 } from "@/modules/Products/ui/components/ProductList";
 import ProductFilters from "@/modules/Products/ui/components/ProductFilters";
-import type { SearchParams } from "nuqs/server";
-// import { loadProductFilters } from "@/modules/Products/hooks/useProductFilterHook";
-import { loadProductFilters } from "@/modules/Products/hooks/searchParams";
 import ProductSort from "@/modules/Products/ui/components/ProductSort";
-import { ProductCardSkeleton } from "../ui/components/ProductCard";
 interface Prop {
   categorySlug?: string | undefined;
   tenantSlug?: string;
   narrowView?: boolean;
-}
-interface Props {
-  params: any;
-  searchParams: Promise<SearchParams>;
 }
 async function ProductListView({ categorySlug, tenantSlug, narrowView }: Prop) {
   //   const { category } = await params;
@@ -62,7 +50,3 @@ async function ProductListView({ categorySlug, tenantSlug, narrowView }: Prop) {
 }
 
 export default ProductListView;
-
-const Loader = () => {
-  return <p>loading</p>;
-};

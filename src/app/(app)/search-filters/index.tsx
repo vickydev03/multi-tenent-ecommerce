@@ -2,17 +2,12 @@
 import React from "react";
 import SearchInput from "./Search-input";
 import Categories from "./Categories";
-import CategoriesSideBar from "./CategoriesSideBar";
 import { useTRPC } from "@/trpc/client";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import BreadCrumNav from "./BreadCrumNav";
 
-interface searchFilters {
-  color: string;
-  id: string;
-  name: string;
-}
+
 function SearchFilters() {
   const trpc = useTRPC();
   const { data } = useSuspenseQuery(trpc.categories.getMany.queryOptions());

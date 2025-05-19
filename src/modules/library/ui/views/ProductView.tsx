@@ -2,16 +2,13 @@
 import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
 import React, { Suspense } from "react";
-import ProductList, { ProductListSkeleton } from "../component/ProductList";
 import { useTRPC } from "@/trpc/client";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import ReviewSidebar from "@/modules/reviews/ui/component/ReviewSidebar";
 import {
   RichText,
-  defaultJSXConverters,
 } from "@payloadcms/richtext-lexical/react";
 import { SerializedEditorState } from "lexical";
-import { Media } from "@/payload-types";
 import { ReviewFormSkeleton } from "@/modules/reviews/ui/component/ReviewForm";
 
 interface Props {

@@ -5,7 +5,6 @@ import { z } from "zod";
 import type { Sort, Where } from "payload";
 import { headers as getHeaders } from "next/headers";
 import { DEFAULT_LIMIT } from "@/constant";
-import { trpc } from "@/trpc/server";
 import { TRPCError } from "@trpc/server";
 
 export const ProductRouter = createTRPCRouter({
@@ -185,7 +184,6 @@ export const ProductRouter = createTRPCRouter({
         );
         const subcategoriesSlug: any = [];
 
-        console.log(subcategoriesSlug, "aaradhya singh");
         const category = formattedData[0];
         if (category) {
           subcategoriesSlug.push(

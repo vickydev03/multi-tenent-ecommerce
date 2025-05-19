@@ -5,18 +5,16 @@ const MIN_RATTING = 0;
 
 interface Props {
   rating: number;
-  classname?: string;
   iconClassName?: string;
   text?: string;
 }
 
 export const StarRating = ({
   rating,
-  classname,
   iconClassName,
   text,
 }: Props) => {
-  let safeRatting = Math.max(MIN_RATTING, Math.min(rating, MAX_RATTING));
+  const safeRatting = Math.max(MIN_RATTING, Math.min(rating, MAX_RATTING));
   return (
     <div className={cn("flex items-center gap-x-1 ")}>
       {Array.from({ length: MAX_RATTING }).map((_, i) => (

@@ -251,7 +251,7 @@ export const authRouter = createTRPCRouter({
           httpOnly: true,
           sameSite: "none",
           domain: process.env.NEXT_PUBLIC_ROOT_DOMAIN,
-          secure:process.env.NODE_ENV==="production",
+          secure: process.env.NODE_ENV === "production",
           path: "/",
         });
 
@@ -292,7 +292,7 @@ export const authRouter = createTRPCRouter({
         path: "/",
         sameSite: "none",
         domain: process.env.NEXT_PUBLIC_ROOT_DOMAIN,
-        secure:process.env.NODE_ENV==="production",
+        secure: process.env.NODE_ENV === "production",
       });
 
       return loginData; // Return user data and token
@@ -306,7 +306,7 @@ export const authRouter = createTRPCRouter({
   }),
 
   // Logout user
-  logout: baseProcedure.mutation(async ({ ctx }) => {
+  logout: baseProcedure.mutation(async () => {
     try {
       const cookies = await getCookies();
       cookies.delete(AUTH_COOKIE); // Remove the authentication cookie

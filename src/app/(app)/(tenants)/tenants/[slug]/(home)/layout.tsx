@@ -1,15 +1,13 @@
-import { DEFAULT_LIMIT } from "@/constant";
 import Footer from "@/modules/tenants/ui/Footer";
 import Navbar, { NavbarSkeleton } from "@/modules/tenants/ui/Navbar";
 import { getQueryClient, trpc } from "@/trpc/server";
 import {
   dehydrate,
   HydrationBoundary,
-  QueryClient,
 } from "@tanstack/react-query";
 import React, { Suspense } from "react";
 interface props {
-  params: any;
+  params: Promise<{slug:string}>;
   children: React.ReactNode;
 }
 async function Layout({ params, children }: props) {

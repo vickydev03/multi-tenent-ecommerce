@@ -1,10 +1,7 @@
 "use client";
 import { useTRPC } from "@/trpc/client";
 import {
-  dehydrate,
-  HydrationBoundary,
   useSuspenseInfiniteQuery,
-  useSuspenseQuery,
 } from "@tanstack/react-query";
 import React from "react";
 import { useProdcutFilters } from "../../hooks/useProductFilterHook";

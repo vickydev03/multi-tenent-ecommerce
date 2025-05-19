@@ -1,17 +1,14 @@
 import React from "react";
-import type { SearchParams } from "nuqs/server";
-import { loadProductFilters } from "@/modules/Products/hooks/searchParams";
 import ProductListView from "@/modules/Products/views/ProductListView";
 import { getQueryClient, trpc } from "@/trpc/server";
 import { DEFAULT_LIMIT } from "@/constant";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
 interface Props {
-  searchParams: Promise<SearchParams>;
+  // searchParams: Promise<SearchParams>;
   params: Promise<{ slug: string }>;
 }
-async function page({ params, searchParams }: Props) {
+async function page({ params }: Props) {
   const { slug } = await params;
-  const filters = await loadProductFilters(searchParams);
 
   const queryClient = getQueryClient();
   void queryClient.prefetchInfiniteQuery(

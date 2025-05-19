@@ -1,6 +1,6 @@
-import { caller, trpc } from "@/trpc/server";
+import { trpc } from "@/trpc/server";
 import { dehydrate, HydrationBoundary } from "@tanstack/react-query";
-import React, { Suspense } from "react";
+import React from "react";
 import { getQueryClient } from "@/trpc/server";
 import type { SearchParams } from "nuqs/server";
 import { loadProductFilters } from "@/modules/Products/hooks/searchParams";
@@ -8,7 +8,7 @@ import ProductListView from "@/modules/Products/views/ProductListView";
 import { DEFAULT_LIMIT } from "@/constant";
 
 interface Props {
-  params: any;
+  params: Promise<{ subcategory: string }>;
   searchParams: Promise<SearchParams>;
 }
 async function page({ params, searchParams }: Props) {
@@ -18,7 +18,12 @@ async function page({ params, searchParams }: Props) {
   // console.log(JSON.stringify(filters), "mai hu gians");
 
   const queryClient = getQueryClient();
-  void queryClient.prefetchInfiniteQuery(trpc.products.getMany.infiniteQueryOptions({...filters, categorySlug: subcategory,tags: [],limit:DEFAULT_LIMIT
+  void queryClient.prefetchInfiniteQuery(
+    trpc.products.getMany.infiniteQueryOptions({
+      ...filters,
+      categorySlug: subcategory,
+      tags: [],
+      limit: DEFAULT_LIMIT,
     })
   );
   return (
@@ -29,7 +34,3 @@ async function page({ params, searchParams }: Props) {
 }
 
 export default page;
-
-const Loader = () => {
-  return <p>loading</p>;
-};

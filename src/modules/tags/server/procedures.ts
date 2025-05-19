@@ -1,8 +1,5 @@
-import { Category } from "@/payload-types";
 import { baseProcedure, createTRPCRouter } from "@/trpc/init";
-import { CustomCategory } from "@/types";
 import { z } from "zod";
-import type { Where } from "payload";
 import { DEFAULT_LIMIT } from "@/constant";
 export const TagsRouter = createTRPCRouter({
   getMany: baseProcedure

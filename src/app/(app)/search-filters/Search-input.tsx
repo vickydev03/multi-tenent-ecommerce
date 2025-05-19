@@ -7,8 +7,17 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useTRPC } from "@/trpc/client";
 import { useQuery } from "@tanstack/react-query";
+import { CustomCategory } from "@/types";
 
-function SearchInput({ disabled, data }: { disabled: boolean; data: any }) {
+function SearchInput({
+  disabled,
+  data,
+}: {
+  disabled: boolean;
+  data: CustomCategory[];
+}) {
+  console.log(data, "this comes from any data ");
+
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const trpc = useTRPC();
   const session = useQuery(trpc.auth.session.queryOptions());

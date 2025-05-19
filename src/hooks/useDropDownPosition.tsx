@@ -1,6 +1,5 @@
 import { RefObject } from "react";
 
-import React from "react";
 
 export function useDropDownPosition(
   ref: RefObject<HTMLDivElement | null> | RefObject<HTMLDivElement>
@@ -10,7 +9,7 @@ export function useDropDownPosition(
     const rect = ref.current.getBoundingClientRect();
     const dropdownWidth = 240; //w-60=15rem=240px
 
-    let top = rect.top + window.screenY;
+    const top = rect.top + window.screenY;
     let left = rect.left + window.screenX;
 
     // check if dropdown would go off the right edge of the viewport

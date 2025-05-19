@@ -14,9 +14,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
-import { Button } from "@/components/ui/button";
-import { ChevronLeftIcon, ChevronRightIcon, MoveRightIcon } from "lucide-react";
-import { Category } from "@/payload-types";
+import { ChevronLeftIcon, ChevronRightIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 function CategoriesSideBar({ open, onOpenChange, data }: Props) {
@@ -34,7 +32,7 @@ function CategoriesSideBar({ open, onOpenChange, data }: Props) {
 
   const currentCategories = parentCategories ?? data ?? [];
   const router = useRouter();
-  let handleback=()=>{
+  const handleback=()=>{
     if(parentCategories){
         setParentCategories(null)
         setSelectedCategory(null)

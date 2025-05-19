@@ -1,14 +1,14 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Category } from "@/payload-types";
 import React, { useRef, useState } from "react";
 import SubCategoriesMenu from "./SubCategoriesMenu";
-import { useDropDownPosition } from "@/hooks/useDropDownPosition";
 import Link from "next/link";
 import { CustomCategory } from "@/types";
+// import { Category } from "@/payload-types";
+
 interface type {
-  category: any;
+  category: CustomCategory;
   isActive?: boolean;
   isNavigationHovered?: boolean;
 }

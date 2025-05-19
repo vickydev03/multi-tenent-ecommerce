@@ -1,8 +1,7 @@
-import { exportTraceState } from "next/dist/trace";
 import { NextRequest, NextResponse } from "next/server";
 
-export const config = () => {
-  matcher: ["/((?!api/|_next/|_static/|_vercel|media/|[\w-]+\.\w+).*)"];
+export const config = {
+  matcher: ["/((?!api/|_next/|_static/|_vercel|media/|[\\w-]+\\.\\w+).*)"],
 };
 
 export default async function middleware(req: NextRequest) {

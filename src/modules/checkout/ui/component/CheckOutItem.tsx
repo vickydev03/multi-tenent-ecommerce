@@ -14,7 +14,6 @@ interface Props {
   onRemove: () => void;
 }
 function CheckOutItem({
-  id,
   isLast,
   imageUrl,
   name,

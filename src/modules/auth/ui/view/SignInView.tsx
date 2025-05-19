@@ -1,17 +1,6 @@
 "use client";
 import React from "react";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 
-// import { useForm } from "react-hook-form";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import z from "zod";
@@ -19,7 +8,6 @@ import z from "zod";
 import { loginSchema } from "../../schema";
 import { useForm } from "react-hook-form";
 import LoginForm from "@/app/(app)/(auth)/_component/LoginForm";
-import { useTRPC } from "@/trpc/client";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
@@ -28,7 +16,6 @@ import { useRouter } from "next/navigation";
 
 function SignInView() {
   const router = useRouter();
-  const trpc = useTRPC();
   const login = useMutation({
     mutationFn: async (values: z.infer<typeof loginSchema>) => {
       const res = await fetch("/api/users/login", {

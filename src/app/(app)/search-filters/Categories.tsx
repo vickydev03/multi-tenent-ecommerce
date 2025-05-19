@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import CategoryDropdown from "./CategoryDropdown";
-import { Category } from "@/payload-types";
 import { CustomCategory } from "@/types";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -9,6 +8,8 @@ import { ListFilterIcon } from "lucide-react";
 import CategoriesSideBar from "./CategoriesSideBar";
 import { useParams } from "next/navigation";
 function Categories({ data }: { data: CustomCategory[] }) {
+  console.log(data,"mai hu ajay");
+  
   const containerRef = useRef<HTMLDivElement>(null);
   const measureRef = useRef<HTMLDivElement>(null);
   const ViewAllRef = useRef<HTMLDivElement>(null);
@@ -21,7 +22,7 @@ function Categories({ data }: { data: CustomCategory[] }) {
   const params = useParams();
   const categoryParams = params.category as string | undefined;
   const activeCategory = categoryParams || "all";
-  let activeCategoryIndex = data.findIndex(
+  const activeCategoryIndex = data.findIndex(
     (cat) => cat.slug === activeCategory
   );
   const IsActiveCategoryHidden =
@@ -77,7 +78,7 @@ function Categories({ data }: { data: CustomCategory[] }) {
         style={{ position: "fixed", top: -9999, left: -9999 }}
       >
         {/* hiddden meausre ref */}
-        {data.map((e: Category) => {
+        {data.map((e: CustomCategory) => {
           return (
             <div key={e.id}>
               <CategoryDropdown
@@ -97,7 +98,7 @@ function Categories({ data }: { data: CustomCategory[] }) {
         onMouseEnter={() => setIsAnyHovered(true)}
         onMouseLeave={() => setIsAnyHovered(false)}
       >
-        {data.slice(0, visibleCount).map((e: Category) => {
+        {data.slice(0, visibleCount).map((e: CustomCategory) => {
           return (
             <div className="bg-red-4000" key={e.id}>
               <CategoryDropdown

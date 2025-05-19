@@ -2,7 +2,6 @@ import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
 import React, { Suspense } from "react";
 import ProductList, { ProductListSkeleton } from "../component/ProductList";
-import { ProductCardSkeleton } from "../component/ProductCard";
 
 function LibraryView() {
   return (

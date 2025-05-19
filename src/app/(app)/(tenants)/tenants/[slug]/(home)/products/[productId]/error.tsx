@@ -1,5 +1,5 @@
 "use client";
-import { InboxIcon, TriangleAlert } from "lucide-react";
+import {  TriangleAlert } from "lucide-react";
 import React from "react";
 
 function ErrorPage() {

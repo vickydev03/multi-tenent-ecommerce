@@ -4,6 +4,7 @@ import React from "react";
 
 interface type {
   category: Category & { subCategories?: Category[] };
+  // category: Category & { subCategories?: Category[] };
   isOpen: boolean;
   // position: { top: number; left: number };
 }
