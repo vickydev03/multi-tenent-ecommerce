@@ -127,17 +127,20 @@ import payloadConfig from "@payload-config";
 import { NextRequest, NextResponse } from "next/server";
 import type { Stripe } from "stripe";
 import { ExpendedLineItems } from "@/modules/checkout/type";
-import { Readable } from "stream";
 
 // ✅ Force Node.js runtime
 export const config = {
   runtime: "nodejs",
 };
 
-async function buffer(readable: Readable) {
+async function buffer(readable: globalThis.ReadableStream<Uint8Array> | null) {
+  if (!readable) throw new Error("No request body");
   const chunks = [];
-  for await (const chunk of readable) {
-    chunks.push(typeof chunk === "string" ? Buffer.from(chunk) : chunk);
+  const reader = readable.getReader();
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    chunks.push(value);
   }
   return Buffer.concat(chunks);
 }
@@ -146,7 +149,7 @@ export async function POST(req: NextRequest) {
   let event: Stripe.Event;
 
   try {
-    const rawBody = await buffer(req.body as any);
+    const rawBody = await buffer(req.body);
     const signature = req.headers.get("stripe-signature") as string;
 
     event = stripe.webhooks.constructEvent(
