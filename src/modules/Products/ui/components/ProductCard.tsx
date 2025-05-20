@@ -40,7 +40,7 @@ function ProductCard({
           <Image
             src={imageUrl || "/placeholder.png"}
             alt={name}
-            className=" object-cover"
+            className=" object-contain"
             width={100}
             height={100}
           />
