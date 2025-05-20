@@ -42,6 +42,9 @@ function CheckOutView({ tenantSlug }: Props) {
       ids: productIds,
     })
   );
+
+  const { data: user } = useQuery(trpc.auth.session.queryOptions());
+
   const router = useRouter();
   useEffect(() => {
     if (states.success) {
@@ -63,8 +66,14 @@ function CheckOutView({ tenantSlug }: Props) {
       clearCart();
       toast.warning("Invalid product found,Cart cleared");
     }
-  }, [error, clearAllCarts,clearCart]);
-
+  }, [error, clearAllCarts, clearCart]);
+  const handlePurchase = () => {
+    if (user?.user) {
+      purchase.mutate({ tenantSlug, productIds });
+    }else{
+      router.push("/sign-in")
+    }
+  };
   if (isLoading) {
     return (
       <div className="lg:p-16 pt-4 px-4 lg:px-12">
@@ -109,7 +118,7 @@ function CheckOutView({ tenantSlug }: Props) {
         <div className="lg:col-span-3">
           <CheckOutSidebar
             total={data?.totalPrice || 0}
-            onPurchase={() => purchase.mutate({ tenantSlug, productIds })}
+            onPurchase={handlePurchase}
             isCanceled={states.cancel}
             isPending={purchase.isPending}
           />
