@@ -6,7 +6,11 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function generateTenant(tenant: string) {
-  if (process.env.NODE_ENV === "development") {
+  const isDev = process.env.NODE_ENV === "development";
+  const isSubdomainRoutingEnabled = Boolean(
+    process.env.NEXT_PUBLIC_ENABLE_SUBDOMAIN_ROUTING!
+  );
+  if (isDev || !isSubdomainRoutingEnabled) {
     return `${process.env.NEXT_PUBLIC_URL}/tenants/${tenant}`;
   }
 
