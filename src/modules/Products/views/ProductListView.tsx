@@ -25,12 +25,12 @@ async function ProductListView({ categorySlug, tenantSlug, narrowView }: Prop) {
   return (
     // <HydrationBoundary state={dehydrate(queryClient)}>
     <div className="bg-red-3000 px-4 lg:px-12 flex flex-col gap-4 overflow-hidden">
-      <div className="flex flex-col lg:flex-row lg:items-center gap-y-2 lg:gap-y-0 justify-between ">
+      <div className="flex flex-col lg:flex-row lg:items-center gap-y-2 lg:gap-y-0 justify-between mt-4 ">
         <p className="font-medium uppercase text-2xl ">Curated for you</p>
         <ProductSort />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-6 xl:grid-cols-8 gap-y-8 gap-x-12">
-        <div className=" lg:col-span-2 xl:col-span-2">
+        <div className=" lg:col-span-2 xl:col-span-2 ">
           {/* <div className=" border-2 p-2"> */}
           <ProductFilters />
           {/* </div> */}

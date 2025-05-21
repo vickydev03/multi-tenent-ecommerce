@@ -31,18 +31,19 @@ function ProductCard({
     e.stopPropagation();
     router.push(generateTenant(authorUsername));
   };
-  console.log("mai hu id",id);
-  
+  console.log("mai hu id", id);
+
   return (
     <Link href={`${generateTenant(authorUsername)}/products/${id}`}>
       <div className="hover:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] transition-shadow border rounded-md bg-white overflow-hidden h-full w-full flex flex-col ">
-        <div className=" relative aspect-square">
+        <div className=" relative aspect-square bg-blac0k">
           <Image
             src={imageUrl || "/placeholder.png"}
             alt={name}
-            className=" object-contain"
-            width={100}
-            height={100}
+            className=" object-contains object-center "
+            // width={100}
+            fill
+            // height={100}
           />
         </div>
         <div className="flex flex-col p-4 gap-3 flex-1 border-y">

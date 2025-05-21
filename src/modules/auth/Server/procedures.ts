@@ -248,11 +248,13 @@ export const authRouter = createTRPCRouter({
         cookies.set({
           name: AUTH_COOKIE,
           value: loginData.token,
-          httpOnly: true,
-          sameSite: "none",
-          domain: process.env.NEXT_PUBLIC_ROOT_DOMAIN,
-          secure: process.env.NODE_ENV === "production",
           path: "/",
+          httpOnly: true,
+          ...(process.env.NODE_ENV !== "development" && {
+            sameSite: "none",
+            domain: process.env.NEXT_PUBLIC_ROOT_DOMAIN,
+            secure: true,
+          }),
         });
 
         return loginData; // Return user data along with token
@@ -290,9 +292,11 @@ export const authRouter = createTRPCRouter({
         value: loginData.token,
         httpOnly: true,
         path: "/",
-        sameSite: "none",
-        domain: process.env.NEXT_PUBLIC_ROOT_DOMAIN,
-        secure: process.env.NODE_ENV === "production",
+        ...(process.env.NODE_ENV !== "development" && {
+          sameSite: "none",
+          domain: process.env.NEXT_PUBLIC_ROOT_DOMAIN,
+          secure: true,
+        }),
       });
 
       return loginData; // Return user data and token

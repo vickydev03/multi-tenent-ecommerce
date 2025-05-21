@@ -7,7 +7,6 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import BreadCrumNav from "./BreadCrumNav";
 
-
 function SearchFilters() {
   const trpc = useTRPC();
   const { data } = useSuspenseQuery(trpc.categories.getMany.queryOptions());
@@ -32,7 +31,7 @@ function SearchFilters() {
 
   return (
     <div
-      className="px-4 lg:px-12 flex flex-col py-8 border-b gap-4 w-full"
+      className="px-4 lg:px-12 flex flex-col py-5 border-b gap-4 w-full"
       style={{ backgroundColor: activeColor }}
     >
       <SearchInput data={data} disabled={false} />
@@ -42,7 +41,7 @@ function SearchFilters() {
       <BreadCrumNav
         activeCategory={activeCategory as string}
         activeCategoryName={activeCategoryName}
-        activeSubCategoryName={activeSubcategoryName  }
+        activeSubCategoryName={activeSubcategoryName}
       />
     </div>
   );
