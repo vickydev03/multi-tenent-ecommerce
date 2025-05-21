@@ -13,7 +13,7 @@ import { Users } from "./collections/Users";
 import { Media } from "./collections/Media";
 import { Categories } from "./app/my-route/Categories";
 import { Products } from "./collections/Products";
-
+import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 import { Tags } from "./collections/Tags";
 import { Tenants } from "./collections/Tenants";
 import { Orders } from "./collections/Order";
@@ -57,12 +57,19 @@ export default buildConfig({
     multiTenantPlugin({
       collections: {
         Product: {},
-        media:{}
+        media: {},
       },
       tenantsArrayField: {
         includeDefaultField: false,
       },
       userHasAccessToAllTenants: (user) => isSuperAdmin(user),
+    }),
+    vercelBlobStorage({
+      enabled: true,
+      collections: {
+        media: true,
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN,
     }),
   ],
 });

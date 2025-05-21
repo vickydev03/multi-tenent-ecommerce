@@ -11,7 +11,6 @@
     "db:fresh": "bunx payload migrate:fresh",
     "db:seed": "bun run src/seed.ts"
   },
-  
   "dependencies": {
     "@hookform/resolvers": "^5.0.1",
     "@payloadcms/db-mongodb": "^3.35.1",
@@ -19,6 +18,7 @@
     "@payloadcms/payload-cloud": "^3.35.1",
     "@payloadcms/plugin-multi-tenant": "3.35.1",
     "@payloadcms/richtext-lexical": "^3.35.1",
+    "@payloadcms/storage-vercel-blob": "3.35.1",
     "@radix-ui/react-checkbox": "^1.2.3",
     "@radix-ui/react-dialog": "^1.1.11",
     "@radix-ui/react-label": "^2.1.4",
