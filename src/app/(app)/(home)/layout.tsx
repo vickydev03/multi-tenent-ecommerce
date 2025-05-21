@@ -39,6 +39,7 @@ const SearchFilterLoader = () => {
       }}
     >
       <SearchInput disabled data={[]} />
+      {/* <p>loading</p> */}
       <div className="hidden lg:block ">
         <div className="h-11" />
       </div>

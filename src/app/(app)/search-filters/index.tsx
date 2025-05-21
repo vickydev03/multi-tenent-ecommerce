@@ -6,6 +6,7 @@ import { useTRPC } from "@/trpc/client";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import BreadCrumNav from "./BreadCrumNav";
+import { useProdcutFilters } from "@/modules/Products/hooks/useProductFilterHook";
 
 function SearchFilters() {
   const trpc = useTRPC();
@@ -15,9 +16,10 @@ function SearchFilters() {
 
   const categoryParams = params.category;
   const activeCategory = categoryParams || "all";
-  console.log(activeCategory, "2003");
+  // console.log(activeCategory, "2003");
+  const [filters, setFilters] = useProdcutFilters();
 
-  console.log(categoryParams, "chiru singh");
+  // console.log(categoryParams, "chiru singh");
   const activeData = data.find((e) => e.slug === activeCategory);
   const activeColor = activeData?.color || "#F5F5F5";
   const activeCategoryName = activeData?.name || null;
@@ -34,7 +36,12 @@ function SearchFilters() {
       className="px-4 lg:px-12 flex flex-col py-5 border-b gap-4 w-full"
       style={{ backgroundColor: activeColor }}
     >
-      <SearchInput data={data} disabled={false} />
+      <SearchInput
+        data={data}
+        disabled={false}
+        defaultValue={filters.search}
+        onChange={(value) => setFilters({ search: value })}
+      />
       <div className="hidden lg:block">
         <Categories data={data} />
       </div>

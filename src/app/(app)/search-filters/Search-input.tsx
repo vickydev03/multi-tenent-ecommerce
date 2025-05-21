@@ -8,29 +8,31 @@ import Link from "next/link";
 import { useTRPC } from "@/trpc/client";
 import { useQuery } from "@tanstack/react-query";
 import { CustomCategory } from "@/types";
-import { useProdcutFilters } from "@/modules/Products/hooks/useProductFilterHook";
 
 function SearchInput({
   disabled,
   data,
+  defaultValue,
+  onChange,
 }: {
   disabled: boolean;
   data: CustomCategory[];
+  defaultValue?: string;
+  onChange?: (value: string) => void;
 }) {
   // console.log(data, "this comes from any data ");
-  const [filters, setFilters] = useProdcutFilters();
-  const [searchValue, setSearchValue] = useState(filters.search);
+  const [searchValue, setSearchValue] = useState(defaultValue);
   const [isSideBarOpen, setIsSideBarOpen] = useState(false);
   const trpc = useTRPC();
   const session = useQuery(trpc.auth.session.queryOptions());
 
   useEffect(() => {
     const searchSetTimeOut = setTimeout(() => {
-      setFilters({ search: searchValue });
-    }, 500);
+      onChange?.(searchValue || "");
+    }, 500);  
 
     return () => clearTimeout(searchSetTimeOut);
-  }, [searchValue, setFilters]);
+  }, [searchValue, onChange]);
   return (
     <div className="flex items-center gap-2 w-full  ">
       <CategoriesSideBar
