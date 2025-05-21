@@ -9,17 +9,17 @@ import { fileURLToPath } from "url";
 import sharp from "sharp";
 import { multiTenantPlugin } from "@payloadcms/plugin-multi-tenant";
 
+import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 import { Users } from "./collections/Users";
 import { Media } from "./collections/Media";
 import { Categories } from "./app/my-route/Categories";
 import { Products } from "./collections/Products";
-import { vercelBlobStorage } from "@payloadcms/storage-vercel-blob";
 import { Tags } from "./collections/Tags";
 import { Tenants } from "./collections/Tenants";
 import { Orders } from "./collections/Order";
 import { Review } from "./collections/Reviews";
 import { isSuperAdmin } from "./lib/access";
- 
+
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 
