@@ -7,6 +7,9 @@ import {
 const sortValues = ["newest", "oldest", "default"];
 
 const params = {
+  search: parseAsString.withOptions({
+    clearOnDefault: true,
+  }).withDefault(""),
   sort: parseAsStringLiteral(sortValues).withDefault("default"),
   minPrice: parseAsString
     .withOptions({

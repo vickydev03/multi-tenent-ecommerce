@@ -107,6 +107,7 @@ export const ProductRouter = createTRPCRouter({
   getMany: baseProcedure
     .input(
       z.object({
+        search: z.string().nullable().optional(),
         cursor: z.number().default(1),
         limit: z.number().default(DEFAULT_LIMIT),
         categorySlug: z.string().nullable().optional(),
@@ -212,6 +213,11 @@ export const ProductRouter = createTRPCRouter({
         };
       }
 
+      if (input.search) {
+        where["name"] = {
+          like: input.search,
+        };
+      }
       const data = await ctx.payload.find({
         collection: "Product",
         depth: 2,
