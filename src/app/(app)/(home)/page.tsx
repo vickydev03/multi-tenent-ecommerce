@@ -23,7 +23,6 @@ async function page({ searchParams }: Props) {
   void queryClient.prefetchInfiniteQuery(
     trpc.products.getMany.infiniteQueryOptions({
       tags: [], // Assuming an empty array is a valid default for tags
-      // categorySlug: category,
       limit:DEFAULT_LIMIT
     })
   );

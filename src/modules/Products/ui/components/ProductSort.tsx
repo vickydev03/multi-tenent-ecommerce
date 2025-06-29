@@ -1,10 +1,10 @@
-"use client"
+"use client";
 import React from "react";
 import { useProdcutFilters } from "../../hooks/useProductFilterHook";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 function ProductSort() {
-    const [filters, setFilters] = useProdcutFilters();
+  const [filters, setFilters] = useProdcutFilters();
   return (
     <div className="flex items-center gap-2">
       <Button
@@ -38,7 +38,7 @@ function ProductSort() {
             "bg-transparent border-transparent hover:border-border hover:bg-transparent"
         )}
         variant={"secondary"}
-        onClick={() => setFilters({ sort: "oldest" })}
+        onClick={() => ({ sort: "oldest" })}
         size="sm"
       >
         Oldest

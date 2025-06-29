@@ -98,7 +98,7 @@ export const ProductRouter = createTRPCRouter({
         ...product,
         image: product.image as Media | null,
         isPurchased,
-        tenant: product.tenant as Tenant & { image: Media | null },
+        tenant: product.tenant as Tenant & { image: null },
         reviewRating,
         reviewCount: reviews.totalDocs,
         ratingDistribution,
@@ -184,12 +184,17 @@ export const ProductRouter = createTRPCRouter({
         //   })
         // );
 
-        const formattedData: CustomCategory[] = categoriesData.docs.map((doc: Category) => ({
-          ...doc,
-          subCategories: doc?.subCategories?.docs?.map((sub: unknown) => sub as Category) ?? [],
-          subcategories: undefined,
-        }));
-        
+        const formattedData: CustomCategory[] = categoriesData.docs.map(
+          (doc: Category) => ({
+            ...doc,
+            subCategories:
+              doc?.subCategories?.docs?.map(
+                (sub: unknown) => sub as Category
+              ) ?? [],
+            subcategories: undefined,
+          })
+        );
+
         const subcategoriesSlug: string[] = [];
 
         const category = formattedData[0];
@@ -242,7 +247,7 @@ export const ProductRouter = createTRPCRouter({
               },
             },
           });
-          return {
+          const returnData = {
             ...doc,
             reviewCount: reviewsData.totalDocs,
             reviewRating:
@@ -253,9 +258,13 @@ export const ProductRouter = createTRPCRouter({
                     0 / reviewsData.totalDocs
                   ),
           };
+          console.log(returnData, "dora");
+
+          return returnData;
         })
       );
-
+      console.log(data,"shruti");
+      
       return {
         ...data,
         docs: dataWithSummrizedReviews.map((doc) => ({

@@ -1,5 +1,5 @@
 "use client";
-import React, {  useState } from "react";
+import React, { useState } from "react";
 import { Poppins } from "next/font/google";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
@@ -47,14 +47,14 @@ function Navbar() {
   const pathName = usePathname();
   const [isSideBarOpen, setIsSidebarOpen] = useState(false);
   return (
-    <nav className="h-18 border-b flex justify-between font-medium bg-white">
-      <Link href={""} className="pl-6 flex items-center">
+    <nav className="h-16 border-b flex justify-between font-medium bg-white ">
+      <Link href={"/"} className="pl-6 flex items-center">
         <span className={cn("text-5xl font-semibold ", popins.className)}>
           TradeNest
         </span>
       </Link>
 
-      <div className=" items-center gap-4 hidden lg:flex">
+      <div className=" items-center gap-2 md:gap-3 lg:gap-4 hidden lg:flex ">
         {navItems.map((e, i) => (
           <Navitem key={i} {...e} isActive={pathName == e.href}>
             {e.children}
@@ -63,7 +63,7 @@ function Navbar() {
       </div>
       {session?.data?.user ? (
         <div className="hidden lg:flex">
-           <Button
+          <Button
             asChild
             variant={"secondary"}
             className="border-l border-b-0 border-r-0 border-t-0 h-full px-12  hover:bg-pink-400 bg-white rounded-none transition-colors text-lg"
@@ -74,11 +74,11 @@ function Navbar() {
           </Button>
         </div>
       ) : (
-        <div className="hidden lg:flex">
+        <div className="hidden lg:flex overflow-hidden">
           <Button
             asChild
             variant={"secondary"}
-            className="border-l border-b-0 border-r-0 border-t-0 h-full px-12  hover:bg-pink-400 bg-white rounded-none transition-colors text-lg"
+            className="border-l border-b-0 border-r-0 border-t-0 h-full px-10 lg:px-8  hover:bg-pink-400 bg-white rounded-none transition-colors text-lg"
           >
             <Link prefetch href={"/sign-in"}>
               Log in
@@ -86,7 +86,7 @@ function Navbar() {
           </Button>
           <Button
             asChild
-            className="border-l border-b-0 border-r-0 border-t-0 h-full px-12  hover:bg-pink-400 hover-text-black bg-black rounded-none transition-colors text-lg"
+            className="border-l border-b-0 border-r-0 border-t-0 h-full px-12  hover:bg-pink-400 hover-text-black bg-black rounded-none transition-colors text-lg "
           >
             <Link prefetch href={"/sign-up"}>
               Start selling

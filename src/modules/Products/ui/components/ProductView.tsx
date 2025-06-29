@@ -69,9 +69,9 @@ function ProductView({ productId, tenantSlug }: Props) {
                   href={generateTenant(tenantSlug)}
                   className=" flex items-center gap-2"
                 >
-                  {data.tenant?.image?.url ? (
+                  {data.tenant?.image ? (
                     <Image
-                      src={data.tenant?.image.url}
+                      src={data.tenant.image as string}
                       alt={data.tenant.name}
                       width={20}
                       height={20}
@@ -136,7 +136,10 @@ function ProductView({ productId, tenantSlug }: Props) {
                       variant={"elevated"}
                       asChild
                     >
-                      <Link href={`/library/${productId}`}>
+                      {/* or remove the process  */}
+                      <Link
+                        href={`${process.env.NEXT_PUBLIC_URL}/library/${productId}`}
+                      >
                         View in Library
                       </Link>
                     </Button>

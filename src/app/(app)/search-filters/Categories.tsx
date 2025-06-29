@@ -8,8 +8,8 @@ import { ListFilterIcon } from "lucide-react";
 import CategoriesSideBar from "./CategoriesSideBar";
 import { useParams } from "next/navigation";
 function Categories({ data }: { data: CustomCategory[] }) {
-  console.log(data,"mai hu ajay");
-  
+  // console.log(data,"mai hu ajay");
+
   const containerRef = useRef<HTMLDivElement>(null);
   const measureRef = useRef<HTMLDivElement>(null);
   const ViewAllRef = useRef<HTMLDivElement>(null);
@@ -55,11 +55,11 @@ function Categories({ data }: { data: CustomCategory[] }) {
       setVisibleCount(visible);
     };
 
-    const resizeObserver = new ResizeObserver(calculateVisible);
-    resizeObserver.observe(containerRef.current!);
+    const resize = new ResizeObserver(calculateVisible);
+    resize.observe(containerRef.current!);
 
     return () => {
-      resizeObserver.disconnect();
+      resize.disconnect();
     };
   }, [data.length]);
 
@@ -110,7 +110,6 @@ function Categories({ data }: { data: CustomCategory[] }) {
           );
         })}
         <div className=" shrink-0" ref={ViewAllRef}>
-          
           <Button
             onClick={() => setIsSideBarOpen(true)}
             variant={"elevated"}

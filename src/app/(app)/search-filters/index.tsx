@@ -11,7 +11,7 @@ import { useProdcutFilters } from "@/modules/Products/hooks/useProductFilterHook
 function SearchFilters() {
   const trpc = useTRPC();
   const { data } = useSuspenseQuery(trpc.categories.getMany.queryOptions());
-
+  
   const params = useParams();
 
   const categoryParams = params.category;

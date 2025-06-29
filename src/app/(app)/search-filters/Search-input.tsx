@@ -29,7 +29,7 @@ function SearchInput({
   useEffect(() => {
     const searchSetTimeOut = setTimeout(() => {
       onChange?.(searchValue || "");
-    }, 500);  
+    }, 500);
 
     return () => clearTimeout(searchSetTimeOut);
   }, [searchValue, onChange]);
@@ -51,9 +51,9 @@ function SearchInput({
           onChange={(e) => setSearchValue(e.target.value)}
         />
       </div>
-      <div>
+      <div className="flex items-center gap-x-2">
         <Button
-          className="size-12 shrink-0 flex lg:hidden"
+          className="size-12 md:size-12 shrink-0 flex lg:hidden"
           variant={"elevated"}
           onClick={() => setIsSideBarOpen(true)}
         >

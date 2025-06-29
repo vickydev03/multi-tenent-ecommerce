@@ -15,8 +15,7 @@ export const appRouter = createTRPCRouter({
   tenants: TenantsRouter,
   checkout: CheckOutRouter,
   library:libraryRouter,
-  reviews:ReviewsRouter
-
+  reviews:ReviewsRouter,
 });
 
 export type AppRouter = typeof appRouter;

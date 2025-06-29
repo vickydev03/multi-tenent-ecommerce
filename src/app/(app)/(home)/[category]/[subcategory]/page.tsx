@@ -17,7 +17,6 @@ async function page({ params, searchParams }: Props) {
 
   const filters = await loadProductFilters(searchParams);
   // console.log(JSON.stringify(filters), "mai hu gians");
-
   const queryClient = getQueryClient();
   void queryClient.prefetchInfiniteQuery(
     trpc.products.getMany.infiniteQueryOptions({

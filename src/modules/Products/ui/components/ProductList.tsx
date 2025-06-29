@@ -1,8 +1,6 @@
 "use client";
 import { useTRPC } from "@/trpc/client";
-import {
-  useSuspenseInfiniteQuery,
-} from "@tanstack/react-query";
+import { useSuspenseInfiniteQuery } from "@tanstack/react-query";
 import React from "react";
 import { useProdcutFilters } from "../../hooks/useProductFilterHook";
 import { ProductCardSkeleton } from "./ProductCard";
@@ -13,8 +11,6 @@ import { cn } from "@/lib/utils";
 import ProductCard from "./ProductCard";
 
 function ProductList({
-  categorySlug,
-  tenantSlug,
   narrowView,
 }: {
   categorySlug: string | undefined;
@@ -29,8 +25,6 @@ function ProductList({
       trpc.products.getMany.infiniteQueryOptions(
         {
           ...filters,
-          categorySlug: categorySlug,
-          tenantSlug: tenantSlug,
           limit: DEFAULT_LIMIT,
         },
         {
@@ -40,7 +34,7 @@ function ProductList({
         }
       )
     );
-  console.log(data, "lalu");
+  console.log(data, "ghritachi");
 
   if (data.pages?.[0]?.docs.length === 0) {
     return (
